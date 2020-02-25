@@ -1,5 +1,5 @@
 <template>
-  <div class="question-box-container">
+  <div class="pokeagenda-box-container">
     <b-jumbotron>
       <b-form inline @submit.prevent="BuscaPokemon">
         <b-input
@@ -29,15 +29,26 @@
        </span>
     </b-jumbotron>
 
+    <div>
+        <Habilidades  v-if='apistatus' :pokeresposta='pokeresposta.abilities'/>
+    </div>
+    <div>
+        <Attacks  v-if='apistatus' :pokeresposta='pokeresposta.moves'/>
+    </div>
+
     
   </div>
 </template>
 
 <script>
 import Pokemon from '@/components/Pokemon.vue'
+import Attacks from '@/components/Attacks.vue'
+import Habilidades from '@/components/Habilidades.vue'
 export default {
     components: {
-        Pokemon
+        Pokemon,
+        Attacks,
+        Habilidades
     },
     data(){
         return{
