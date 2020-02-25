@@ -1,4 +1,8 @@
 # pokeagenda
+```
+Pokeagenda feita em VUEJS
+Consumindo a api do https://pokeapi.co/
+```
 
 ## Project setup
 ```
