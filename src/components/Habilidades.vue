@@ -41,9 +41,9 @@ export default {
     methods:{
         buscaApi(){
             this.pokeresposta.map((val)=>{
-            this.habilidadeApi=[...this.habilidadeApi,val.ability.url]
-            //console.log(this.habilidadeApi)
-            this.carregaHabilidade(val.ability.url)
+                this.habilidadeApi=[...this.habilidadeApi,val.ability.url]
+                //console.log(this.habilidadeApi)
+                this.carregaHabilidade(val.ability.url)
             }) 
         },
 
@@ -53,7 +53,7 @@ export default {
                 .then(res => {
                     //console.log(res.data);
                     data = res.data
-                    setInterval(() => {}, 1000)
+                    //setInterval(() => {}, 1000)
                     this.retornoHabilidade = [...this.retornoHabilidade,data];                   
                 })
         },

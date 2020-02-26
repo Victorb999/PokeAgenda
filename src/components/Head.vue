@@ -1,12 +1,19 @@
 <template>
     <div>
        <div>
-        <b-nav>
-            <b-nav-item>                
-                <router-link to="/"><b>Poke Agenda</b></router-link> 
+        <b-nav class="header">
+            <b-nav-item>
+                 <router-link to="/">
+                    <img src="https://assets.pokemon.com/static2/_ui/img/favicon.ico" alt="pokeagenda">
+                </router-link> 
+            </b-nav-item>
+            <b-nav-item>                              
+                <router-link to="/" class="logo">                
+                <b>Poke Agenda</b>
+                </router-link> 
             </b-nav-item>           
             <b-nav-item>               
-                <router-link to="/tipo">Busca por tipo</router-link> 
+                <router-link to="/tipo"><b>Busca por tipo</b></router-link> 
             </b-nav-item>           
         </b-nav>
 

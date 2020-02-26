@@ -61,9 +61,14 @@ export default {
     methods:{
         setaImg(){
             let numero 
-            numero = ('000' + this.pokeresposta.id).substr(-3)
-            this.tipo = this.pokeresposta.types   
-            this.fotourl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${numero}.png`
+            numero = this.pokeresposta.id < 999 ? ('000' + this.pokeresposta.id).substr(-3) : this.pokeresposta.id
+            this.tipo = this.pokeresposta.types 
+            if(numero < 1000){
+                this.fotourl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${numero}.png`
+            }
+            else{
+                this.fotourl = "https://toyama.com.br/images/imagens.png"                
+            }
         }
     }
 }

@@ -58,12 +58,19 @@ export default {
             pokeresposta: {}
         }
     },
+    mounted(){
+        if(this.$route){
+            this.pokemon =this.$route.params.id
+            this.BuscaPokemon()
+        }
+    },
     methods:{
         BuscaPokemon(){
             
             if(this.pokemon === ''){
                 return false
             }
+            
             this.$http.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)          
             .then((response) =>{
                     this.pokemon=''
