@@ -6,7 +6,7 @@
           id="inline-form-input-name"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="Digite o Pokémon"
-          v-model="pokemon"
+          v-model.trim="pokemon"
         ></b-input>
 
         <b-button 
@@ -25,7 +25,7 @@
        />
        <span 
        v-else-if='!apistatus'>
-        Não foi possível encontrar esse pokémon.
+        {{msg}}
        </span>
     </b-jumbotron>
 
@@ -54,11 +54,16 @@ export default {
         return{
             pokemon: '',
             apistatus: false,
+            msg: 'Busque o pokémon que deseja, digitando o nome ou seu número.',
             pokeresposta: {}
         }
     },
     methods:{
         BuscaPokemon(){
+            
+            if(this.pokemon === ''){
+                return false
+            }
             this.$http.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)          
             .then((response) =>{
                     this.pokemon=''
@@ -69,6 +74,7 @@ export default {
             })
             .catch((err)=>{
                 this.apistatus = false
+                this.msg = "Não foi possível encontrar esse pokémon. Busque um pokémon existente."
             })
             
         },
@@ -76,6 +82,7 @@ export default {
             this.pokemon=''
             this.apistatus= false
             this.pokeresposta= {}
+            this.msg= 'Busque o pokémon que deseja, digitando o nome ou seu número.'
         }
     }
 }
