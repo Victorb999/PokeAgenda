@@ -1,5 +1,5 @@
 <template>
-    <div class="attacks-box-container">
+    <div class="attacks-box-container container">
         Ataques:
         <span v-for='(moves,index) in pokeresposta' :key='index'>
          <b-badge>{{moves.move.name}}</b-badge>                                

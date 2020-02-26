@@ -1,9 +1,15 @@
 <template>
-    <div class="habilidades-box-container">
-        Habilidades:
+    <div class="habilidades-box-container container">
+        Habilidades:<br />
         <span v-for='(habilidade,index) in pokeresposta' :key='index'>
          <b-badge class="habilidades">{{habilidade.ability.name}}</b-badge>
-         <span @show="carregaHabilidade(habilidade.ability.url)"> </span>                                
+         <!-- <button @load="carregaHabilidade(habilidade.ability.url)">?</button> -->
+            
+         <div v-if='retornoHabilidade[index]'>             
+            <span class="descricao-habilidade" v-for='(retorno,index2) in retornoHabilidade[index].effect_entries' :key='index2'>
+                {{retorno.effect}}
+            </span> 
+        </div>                                
         </span>
        
     </div>
@@ -17,30 +23,52 @@ export default {
     data(){
         return{
             habilidadeApi : [],
-            retornoHabilidade: {}         
+            retornoHabilidade: []                   
         }
     },
-    mounted(){
-       
-        // this.pokeresposta.map((val)=>{
-        //     this.habilidadeApi=[...this.habilidadeApi,val.ability.url]
-        //     this.carregaHabilidade(val.ability.url)
-        // })
-        //console.log(this.habilidadeApi)
-      
-    },
+    mounted(){       
+        this.buscaApi()      
+    },     
+    watch:{
+        pokeresposta:{           
+            handler() {      
+                this.habilidadeApi = [],
+                this.retornoHabilidade= [],
+                this.buscaApi()                 
+            }
+        }
+    },   
     methods:{
-        carregaHabilidade(url){  
-                      
-             this.$http.get(url)          
-             .then((response) =>{                
-                this.retornoHabilidade = response.data
-                 console.log(response.data)
+        buscaApi(){
+            this.pokeresposta.map((val)=>{
+            this.habilidadeApi=[...this.habilidadeApi,val.ability.url]
+            //console.log(this.habilidadeApi)
+            this.carregaHabilidade(val.ability.url)
+            }) 
+        },
+
+        async carregaHabilidade(url){
+            let data = {}
+            await this.$http.get(url)                 
+                .then(res => {
+                    //console.log(res.data);
+                    data = res.data
+                    setInterval(() => {}, 1000)
+                    this.retornoHabilidade = [...this.retornoHabilidade,data];                   
+                })
+        },
+        carregaHabilidade2(url){  
+            let data = {}
+             this.$http.get(url)
+            .then(response => response.json())         
+            .then((jsonData) =>{  
+                data = jsonData.data            
+                return data
+                //console.log(response.data)
              })
              .catch((err)=>{
-                 this.retornoHabilidade = {}
-             })
-             console.log(this.retornoHabilidade)
+                 return false
+             })                      
         }
     }
 }

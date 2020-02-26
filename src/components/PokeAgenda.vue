@@ -1,6 +1,6 @@
 <template>
   <div class="pokeagenda-box-container">
-    <b-jumbotron>
+    <b-jumbotron class="div-busca">
       <b-form inline @submit.prevent="BuscaPokemon">
         <b-input
           id="inline-form-input-name"
@@ -18,7 +18,7 @@
       </b-form>
     </b-jumbotron>
 
-    <b-jumbotron >
+    <b-jumbotron class="div-resultado">
        <Pokemon 
        v-if='apistatus'
        :pokeresposta='pokeresposta'
@@ -29,10 +29,10 @@
        </span>
     </b-jumbotron>
 
-    <div>
+    <div class="div-habilidades">
         <Habilidades  v-if='apistatus' :pokeresposta='pokeresposta.abilities'/>
     </div>
-    <div>
+    <div class="div-attacks">
         <Attacks  v-if='apistatus' :pokeresposta='pokeresposta.moves'/>
     </div>
 
@@ -61,7 +61,7 @@ export default {
         BuscaPokemon(){
             this.$http.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)          
             .then((response) =>{
-                
+                    this.pokemon=''
                     this.apistatus = true
                     this.pokeresposta = response.data
                    
@@ -73,8 +73,8 @@ export default {
             
         },
         reseta(){
-            this.pokemon='',
-            this.apistatus= false,
+            this.pokemon=''
+            this.apistatus= false
             this.pokeresposta= {}
         }
     }
