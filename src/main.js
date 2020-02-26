@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { BootstrapVue } from 'bootstrap-vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import axios from 'axios';
 import router from './router'
 
@@ -13,6 +13,7 @@ import App from './App.vue'
 // Install BootstrapVue
 Vue.prototype.$http = axios
 Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 Vue.config.productionTip = false
 
 new Vue({

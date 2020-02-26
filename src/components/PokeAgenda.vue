@@ -59,7 +59,7 @@ export default {
         }
     },
     mounted(){
-        if(this.$route){
+        if(this.$route.params.id){
             this.pokemon =this.$route.params.id
             this.BuscaPokemon()
         }
@@ -69,8 +69,7 @@ export default {
             
             if(this.pokemon === ''){
                 return false
-            }
-            
+            }            
             this.$http.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)          
             .then((response) =>{
                     this.pokemon=''
