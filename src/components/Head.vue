@@ -15,6 +15,9 @@
             <b-nav-item>               
                 <router-link to="/tipo"><b>Busca por tipo</b></router-link> 
             </b-nav-item>           
+            <b-nav-item>               
+                <router-link to="/geracao"><b>Busca por geração</b></router-link> 
+            </b-nav-item>           
         </b-nav>
 
         

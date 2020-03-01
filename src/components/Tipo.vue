@@ -45,6 +45,10 @@ export default {
   },   
   mounted(){
     this.retornaTipos()
+    if(this.$route.params.id){
+          this.tiposelecionado =this.$route.params.id          
+          this.retornaTipo(this.tiposelecionado)          
+    }
   },  
   watch:{
         tiposelecionado:{

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/components/Home.vue'
 import Tipo from '@/components/Tipo.vue'
+import Geracao from '@/components/Geracao.vue'
 import PokeAgenda from '@/components/PokeAgenda.vue'
 
 Vue.use(VueRouter)
@@ -18,10 +19,26 @@ const routes = [
     component: Tipo
   },
   {
+    path: '/tipo/:id',
+    name: 'Tipo',
+    component: Tipo
+  },
+  {
+    path: '/geracao',
+    name: 'Geracao',
+    component: Geracao
+  },
+  {
+    path: '/geracao/:id',    
+    name: 'Geracao',
+    component: Geracao
+  },
+  {
     path: '/pokemon/:id',
     name: 'PokeAgenda',
     component: PokeAgenda
-  },
+  }
+
 
 ];
 

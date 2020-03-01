@@ -29,6 +29,9 @@
        </span>
     </b-jumbotron>
 
+    <div class="div-statusbase">
+        <StatusBase  v-if='apistatus' :pokeresposta='pokeresposta.stats'/>
+    </div>
     <div class="div-habilidades">
         <Habilidades  v-if='apistatus' :pokeresposta='pokeresposta.abilities'/>
     </div>
@@ -44,11 +47,13 @@
 import Pokemon from '@/components/Pokemon.vue'
 import Attacks from '@/components/Attacks.vue'
 import Habilidades from '@/components/Habilidades.vue'
+import StatusBase from '@/components/StatusBase.vue'
 export default {
     components: {
         Pokemon,
         Attacks,
-        Habilidades
+        Habilidades,
+        StatusBase
     },
     data(){
         return{

@@ -1,9 +1,9 @@
 <template>
-<div>
+<div class="evolucoes-box">
     <h1>Evoluções</h1>    
 
-    <div v-if="evolucoes.length > 0" class="container-lista-pokemon">
-                <div class="pokemons-lista" v-for='(pokemon,index) in evolucoes' :key='index+"f"'>           
+    <div v-if="evolucoes.length > 0" class="evolucoes-box-container">
+                <div class="pokemons-lista-evol" v-for='(pokemon,index) in evolucoes' :key='index+"f"'>           
                     <router-link :to="`/pokemon/${pokemon}`">         
                         
                        <img 

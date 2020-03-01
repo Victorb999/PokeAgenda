@@ -29,8 +29,9 @@
                     <h4>Tipo</h4>
                      <div class="tipos">
                         <h4 v-for='(tipos,index) in tipo' :key='index'  class="texto-tipo">
-                            <b-badge :class='tipo[index].type.name'>{{tipo[index].type.name}}  </b-badge> 
-                                    
+                            <router-link :to="`/tipo/${tipo[index].type.name}`">  
+                                <b-badge :class='tipo[index].type.name'>{{tipo[index].type.name}}  </b-badge> 
+                            </router-link>       
                         </h4>
                     </div>
                 </div>
@@ -38,7 +39,7 @@
             </b-col>            
         </b-row>
 
-        <b-row>  
+        <!-- <b-row>  
             <b-col>
                 <h4>Status base</h4>
                 <ul class="lista-atributos">
@@ -48,11 +49,11 @@
                     </li>
                 </ul>
             </b-col>
-        </b-row>
+        </b-row> -->
 
         <b-row>
             <b-col>
-                <Evolucoes :evolucoes="evolucoes" :evolucoesUrl="evolucoesURL" />
+                <Evolucoes :evolucoes="evolucoes" :evolucoesUrl="evolucoesURL" v-if="evolucoes.length > 1"/>
             </b-col>
         </b-row>
         
