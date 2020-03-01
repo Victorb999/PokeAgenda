@@ -58,7 +58,14 @@ export default {
               this.retornou= false,
               this.msg="Busque um tipo de pokémon."
             }
-        }
+        },
+        $route:{
+          handler() {                
+              //console.log(this.$route.params)  
+              this.tiposelecionado =this.$route.params.id
+              this.retornaTipos(tiposelecionado)        
+          }
+      }
   },
   methods:{
     retornaTipos(){
@@ -73,6 +80,7 @@ export default {
         }) 
     },
     retornaTipo(tipo){
+      window.history.pushState('page', tipo, "/tipo/"+tipo);
       if(tipo === 0){
         return false
       }

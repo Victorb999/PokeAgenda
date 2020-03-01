@@ -1,9 +1,9 @@
 <template>
     <div class="tipopokemon-div">
         <div class="container">
-        <h3>Pokémons</h3>       
+        <h3>Espécies pokémon</h3>       
             <div v-if="retornoGeracao.length > 0" class="container-lista-pokemon">
-                <div class="pokemons-lista" v-for='(pokemon,index) in retornoGeracao' :key='index+"f"'>           
+                <div class="pokemons-lista" v-for='(pokemon,index) in retornoGeracao.slice().reverse()' :key='index+"f"'>           
                      <router-link :to="`/pokemon/${pokemon.name}`">           
                         <img 
                         :src="foto[index]"
@@ -36,7 +36,7 @@ export default {
     },
     beforeMount(){
         let numeropoke = 0
-        this.retornoGeracao.map( (retorno,index) => {
+        this.retornoGeracao.slice().reverse().map( (retorno,index) => {
            //console.log(retorno.url)
             numeropoke = retorno.url.replace('https://pokeapi.co/api/v2/pokemon-species/','')
             numeropoke = numeropoke.replace('/','')

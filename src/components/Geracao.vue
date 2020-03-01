@@ -30,6 +30,7 @@
 <script>
 import GeracoesPokemon from '@/components/GeracoesPokemon.vue'
 export default {
+    
   components: {
         GeracoesPokemon
     },
@@ -57,6 +58,13 @@ export default {
               this.retornou= false,
               this.msg="Busque uma geração de pokémon."
             }
+        },
+        $route:{
+            handler() {                
+                //console.log(this.$route.params)  
+                this.geracoeselecionado =this.$route.params.id
+                this.retornaGeracao(geracoeselecionado)        
+            }
         }
   },
   methods:{
@@ -72,6 +80,7 @@ export default {
         }) 
     },
     retornaGeracao(tipo){
+        window.history.pushState('page', tipo, "/geracao/"+tipo)
       if(tipo === 0){
         return false
       }
