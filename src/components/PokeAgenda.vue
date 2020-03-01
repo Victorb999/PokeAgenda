@@ -58,6 +58,15 @@ export default {
             pokeresposta: {}
         }
     },
+    watch:{
+         $route:{
+                handler() {                
+                    //console.log(this.$route.params)  
+                    this.pokemon =this.$route.params.id
+                    this.BuscaPokemon()          
+                }
+            }
+    },
     mounted(){
         if(this.$route.params.id){
             this.pokemon =this.$route.params.id
@@ -66,7 +75,7 @@ export default {
     },
     methods:{
         BuscaPokemon(){
-            
+            window.history.pushState('page', this.pokemon, "/pokemon/"+this.pokemon);
             if(this.pokemon === ''){
                 return false
             }            
