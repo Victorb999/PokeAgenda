@@ -2,6 +2,7 @@
     
 //base
 @import 'base/variables'
+@import 'base/pokeclasses'
 
 //components
 
@@ -9,11 +10,16 @@
 @import 'components/pokeagenda'
 @import 'components/attacks'
 @import 'components/habilidades'
+@import 'components/tipopokemon'
+@import 'components/statusbase'
+@import 'components/evolucoes'
+@import 'components/geracoes'
 
 body
     background: $white
     font-family: $font
-
+.badge
+    margin-left: 2px
 .jumbotron
     padding: 10px
     margin-bottom: 0px
@@ -30,3 +36,14 @@ body
     background: $cinza-escuro
     margin: 0px
     padding: 5px
+.header a
+    text-align: center
+    color: $cinza-escurao
+.header a:hover
+    text-decoration: none
+    color: $cinza-escuro
+.header
+    display: flex
+    align-items: center;
+.logo b    
+    margin-left: 5px

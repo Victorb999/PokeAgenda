@@ -1,8 +1,9 @@
 <template>
     <div class="habilidades-box-container container">
-        Habilidades:<br />
-        <span v-for='(habilidade,index) in pokeresposta' :key='index'>
-         <b-badge class="habilidades">{{habilidade.ability.name}}</b-badge>
+        <h3>Ability</h3>
+
+        <div v-for='(habilidade,index) in pokeresposta' :key='index' class="habilidade-box">
+         <h4 class="habilidades">{{habilidade.ability.name}}</h4>
          <!-- <button @load="carregaHabilidade(habilidade.ability.url)">?</button> -->
             
          <div v-if='retornoHabilidade[index]'>             
@@ -10,7 +11,7 @@
                 {{retorno.effect}}
             </span> 
         </div>                                
-        </span>
+        </div>
        
     </div>
 </template>
@@ -41,9 +42,9 @@ export default {
     methods:{
         buscaApi(){
             this.pokeresposta.map((val)=>{
-            this.habilidadeApi=[...this.habilidadeApi,val.ability.url]
-            //console.log(this.habilidadeApi)
-            this.carregaHabilidade(val.ability.url)
+                this.habilidadeApi=[...this.habilidadeApi,val.ability.url]
+                //console.log(this.habilidadeApi)
+                this.carregaHabilidade(val.ability.url)
             }) 
         },
 
@@ -53,7 +54,7 @@ export default {
                 .then(res => {
                     //console.log(res.data);
                     data = res.data
-                    setInterval(() => {}, 1000)
+                    //setInterval(() => {}, 1000)
                     this.retornoHabilidade = [...this.retornoHabilidade,data];                   
                 })
         },

@@ -5,13 +5,13 @@
         <b-input
           id="inline-form-input-name"
           class="mb-2 mr-sm-2 mb-sm-0"
-          placeholder="Digite o Pokémon"
+          placeholder="Enter a Pokemon"
           v-model.trim="pokemon"
         ></b-input>
 
         <b-button 
         @click='BuscaPokemon' 
-        variant="success">Buscar</b-button>
+        variant="success">Search</b-button>
 
         <b-button @click='reseta' 
         type="reset" variant="danger">Reset</b-button>        
@@ -29,6 +29,9 @@
        </span>
     </b-jumbotron>
 
+    <div class="div-statusbase">
+        <StatusBase  v-if='apistatus' :pokeresposta='pokeresposta.stats'/>
+    </div>
     <div class="div-habilidades">
         <Habilidades  v-if='apistatus' :pokeresposta='pokeresposta.abilities'/>
     </div>
@@ -41,29 +44,46 @@
 </template>
 
 <script>
-import Pokemon from '@/components/Pokemon.vue'
-import Attacks from '@/components/Attacks.vue'
-import Habilidades from '@/components/Habilidades.vue'
+import Pokemon from '@/components/Pokemon/Pokemon.vue'
+import Attacks from '@/components/Pokemon/Attacks.vue'
+import Habilidades from '@/components/Pokemon/Habilidades.vue'
+import StatusBase from '@/components/Pokemon/StatusBase.vue'
 export default {
     components: {
         Pokemon,
         Attacks,
-        Habilidades
+        Habilidades,
+        StatusBase
     },
     data(){
         return{
             pokemon: '',
             apistatus: false,
-            msg: 'Busque o pokémon que deseja, digitando o nome ou seu número.',
+            msg: 'Search for a pokemon, enter the name or the number.',
             pokeresposta: {}
+        }
+    },
+    watch:{
+         $route:{
+                handler() {                
+                    //console.log(this.$route.params)  
+                    this.pokemon =this.$route.params.id
+                    this.BuscaPokemon()          
+                }
+            }
+    },
+    mounted(){
+        if(this.$route.params.id){
+            this.pokemon =this.$route.params.id
+            this.BuscaPokemon()
         }
     },
     methods:{
         BuscaPokemon(){
-            
+            window.history.pushState('page', this.pokemon, "/pokemon/"+this.pokemon);
             if(this.pokemon === ''){
                 return false
-            }
+            }            
             this.$http.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemon}`)          
             .then((response) =>{
                     this.pokemon=''
@@ -74,7 +94,7 @@ export default {
             })
             .catch((err)=>{
                 this.apistatus = false
-                this.msg = "Não foi possível encontrar esse pokémon. Busque um pokémon existente."
+                this.msg = "Enter a valid pokemon."
             })
             
         },
@@ -82,7 +102,7 @@ export default {
             this.pokemon=''
             this.apistatus= false
             this.pokeresposta= {}
-            this.msg= 'Busque o pokémon que deseja, digitando o nome ou seu número.'
+            this.msg= 'Look for a pokemon that you want.'
         }
     }
 }
