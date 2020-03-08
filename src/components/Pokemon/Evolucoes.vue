@@ -1,6 +1,6 @@
 <template>
 <div class="evolucoes-box">
-    <h1>Evoluções</h1>    
+    <h1>Evolutions</h1>    
 
     <div v-if="evolucoes.length > 0" class="evolucoes-box-container">
                 <div class="pokemons-lista-evol" v-for='(pokemon,index) in evolucoes' :key='index+"f"'>           

@@ -1,6 +1,6 @@
 <template>
     <div class="habilidades-box-container container">
-        <h3>Habilidades</h3>
+        <h3>Ability</h3>
 
         <div v-for='(habilidade,index) in pokeresposta' :key='index' class="habilidade-box">
          <h4 class="habilidades">{{habilidade.ability.name}}</h4>

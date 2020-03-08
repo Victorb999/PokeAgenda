@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/components/Home.vue'
-import Tipo from '@/components/Tipo.vue'
-import Geracao from '@/components/Geracao.vue'
+import Tipo from '@/components/Types/Tipo.vue'
+import Geracao from '@/components/Generation/Geracao.vue'
 import PokeAgenda from '@/components/PokeAgenda.vue'
 
 Vue.use(VueRouter)
@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: PokeAgenda
   },
   {
     path: '/tipo',
@@ -20,7 +20,7 @@ const routes = [
   },
   {
     path: '/tipo/:id',
-    name: 'Tipo',
+    name: 'Tipo pokemon',
     component: Tipo
   },
   {
@@ -30,7 +30,7 @@ const routes = [
   },
   {
     path: '/geracao/:id',    
-    name: 'Geracao',
+    name: 'Geracao pokemon',
     component: Geracao
   },
   {

@@ -13,10 +13,10 @@
                 </router-link> 
             </b-nav-item>           
             <b-nav-item>               
-                <router-link to="/tipo"><b>Busca por tipo</b></router-link> 
+                <router-link to="/tipo"><b>Search for type</b></router-link> 
             </b-nav-item>           
             <b-nav-item>               
-                <router-link to="/geracao"><b>Busca por geração</b></router-link> 
+                <router-link to="/geracao"><b>Search for generation</b></router-link> 
             </b-nav-item>           
         </b-nav>
 

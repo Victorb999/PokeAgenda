@@ -1,7 +1,7 @@
 <template>
     <div class="tipopokemon-div">
         <div class="container">
-        <h3>Pokémons</h3>       
+        <h3>Pokemons</h3>       
             <div v-if="retornoTipo.pokemon.length > 0" class="container-lista-pokemon">
                 <div class="pokemons-lista" v-for='(pokemon,index) in retornoTipo.pokemon' :key='index+"f"'>           
                     <router-link :to="`/pokemon/${pokemon.pokemon.name}`">           

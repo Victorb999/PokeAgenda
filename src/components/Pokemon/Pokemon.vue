@@ -16,17 +16,17 @@
         
             <b-col>
                 <div class="infos">
-                   <h4>Descrição</h4>    
+                   <h4>Description</h4>    
                     <span v-if="descricao" class="poke-descricao">
                         {{descricao}}
                     </span>
 
                     <h5 v-if="especie.habitat">Habitat: {{especie.habitat.name}}</h5>
-                    <h5 v-if="especie.shape">Corpo: {{especie.shape.name}}</h5>
+                    <h5 v-if="especie.shape">Body: {{especie.shape.name}}</h5>
                   
-                    <h5>Altura: {{pokeresposta.height/10}} m</h5>
-                    <h5>Peso: {{pokeresposta.weight/10}} kg</h5>
-                    <h4>Tipo</h4>
+                    <h5>Height: {{pokeresposta.height/10}} m</h5>
+                    <h5>Weight: {{pokeresposta.weight/10}} kg</h5>
+                    <h4>Type</h4>
                      <div class="tipos">
                         <h4 v-for='(tipos,index) in tipo' :key='index'  class="texto-tipo">
                             <router-link :to="`/tipo/${tipo[index].type.name}`">  
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import Evolucoes from '@/components/Evolucoes.vue'
+import Evolucoes from '@/components/Pokemon/Evolucoes.vue'
 export default {
     components: {
         Evolucoes

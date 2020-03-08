@@ -1,6 +1,6 @@
 <template>
     <div class="status-box-container container">      
-        <h3>Status base</h3>
+        <h3>Base status</h3>
         
                 <b-row class="lista-atributos">
                     <b-col cols='4' v-for='(status,index) in pokeresposta' :key='index'>

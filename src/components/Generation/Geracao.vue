@@ -3,7 +3,7 @@
        
        
       <b-jumbotron class="div-busca">
-        <label for="select-tipo">Selecione a geração </label> 
+        <label for="select-tipo">Select a generation </label> 
        <b-form-select v-model="geracoeselecionado" @change="retornaGeracao(geracoeselecionado+1)" class="select-tipo" id="select-tipo">
            <b-form-select-option v-for="(tipo,index) in geracoes" :key="index" :value='index'>
                {{tipo.name}}
@@ -13,8 +13,8 @@
 
       <div class="msg-box-container container">
         <h4>{{msg}}</h4>
-        <h1 v-if='retornou'>{{retornoGeracao.name}}</h1>
-        <h2 v-if='retornou'>{{retornoGeracao.main_region.name}}</h2>    
+        <h1 v-if='retornou' class="name-generation">{{retornoGeracao.name}}</h1>
+        <h2 v-if='retornou' class="name-region">{{retornoGeracao.main_region.name}}</h2>    
       </div>
         <div class="geracoes-box-container" v-if='retornou'>
                   
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import GeracoesPokemon from '@/components/GeracoesPokemon.vue'
+import GeracoesPokemon from '@/components/Generation/GeracoesPokemon.vue'
 export default {
     
   components: {
@@ -40,7 +40,7 @@ export default {
       geracoeselecionado: '',
       retornoGeracao:[],
       retornou: false,
-      msg:"Busque uma geração de pokémon."
+      msg:"Search for a generation."
     }
   },   
   mounted(){
@@ -56,7 +56,7 @@ export default {
             handler() {              
               this.retornoGeracao=[],
               this.retornou= false,
-              this.msg="Busque uma geração de pokémon."
+              this.msg="Search for a generation."
             }
         },
         $route:{
@@ -97,7 +97,7 @@ export default {
         })
         .catch((err)=>{
             this.retornou = false
-            this.msg = "Não foi possível encontrar esse tipo."
+            this.msg = "This generation isn't valid."
         }) 
     },
   }

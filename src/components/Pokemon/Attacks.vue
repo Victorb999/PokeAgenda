@@ -1,6 +1,6 @@
 <template>
     <div class="attacks-box-container container">
-        <h4>Ataques</h4>
+        <h4>Moves</h4>
         <span v-for='(moves,index) in pokeresposta' :key='index'>
          <b-badge>{{moves.move.name}}</b-badge>                                
         </span>

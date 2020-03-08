@@ -3,7 +3,7 @@
        
        
       <b-jumbotron class="div-busca">
-        <label for="select-tipo">Selecione o tipo </label> 
+        <label for="select-tipo">Select a type </label> 
        <b-form-select v-model="tiposelecionado" @change="retornaTipo(tiposelecionado+1)" class="select-tipo" id="select-tipo">
            <b-form-select-option v-for="(tipo,index) in tipos" :key="index" :value='index'>
                {{tipo.name}}
@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import TiposRelacao from '@/components/TiposRelacao.vue'
-import TiposMoves from '@/components/TiposMoves.vue'
-import TiposPokemons from '@/components/TiposPokemons.vue'
+import TiposRelacao from '@/components/Types/TiposRelacao.vue'
+import TiposMoves from '@/components/Types/TiposMoves.vue'
+import TiposPokemons from '@/components/Types/TiposPokemons.vue'
 export default {
   components: {
       TiposRelacao,TiposMoves,TiposPokemons       
@@ -40,7 +40,7 @@ export default {
       tiposelecionado: '',
       retornoTipo:[],
       retornou: false,
-      msg:"Busque um tipo de pokémon."
+      msg:"Search a type pokemon."
     }
   },   
   mounted(){
@@ -56,7 +56,7 @@ export default {
             handler() {              
               this.retornoTipo=[],
               this.retornou= false,
-              this.msg="Busque um tipo de pokémon."
+              this.msg="Search a type pokemon."
             }
         },
         $route:{
@@ -97,7 +97,7 @@ export default {
         })
         .catch((err)=>{
             this.retornou = false
-            this.msg = "Não foi possível encontrar esse tipo."
+            this.msg = "This type isn't valid."
         }) 
     },
   }

@@ -1,7 +1,7 @@
 <template>
     <div class="tipopokemon-div">
         <div class="container">
-        <h3>Espécies pokémon</h3>       
+        <h3>Pokemon species</h3>       
             <div v-if="retornoGeracao.length > 0" class="container-lista-pokemon">
                 <div class="pokemons-lista" v-for='(pokemon,index) in retornoGeracao.slice().reverse()' :key='index+"f"'>           
                      <router-link :to="`/pokemon/${pokemon.name}`">           
