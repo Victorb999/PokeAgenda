@@ -64,13 +64,13 @@ export default {
         }
     },
     watch:{
-         $route:{
-                handler() {                
-                    //console.log(this.$route.params)  
-                    this.pokemon =this.$route.params.id
-                    this.BuscaPokemon()          
-                }
+        $route:{
+            handler() {                
+                //console.log(this.$route.params)  
+                this.pokemon =this.$route.params.id
+                this.BuscaPokemon()          
             }
+        }
     },
     mounted(){
         if(this.$route.params.id){
