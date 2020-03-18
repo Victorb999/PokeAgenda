@@ -4,7 +4,7 @@
        
       <b-jumbotron class="div-busca">
         <label for="select-tipo">Select a type </label> 
-       <b-form-select v-model="tiposelecionado" @change="retornaTipo(tiposelecionado+1)" class="select-tipo" id="select-tipo">
+       <b-form-select v-model="tiposelecionado" @change="retornaTipo(tiposelecionado+1,true)" class="select-tipo" id="select-tipo">
            <b-form-select-option v-for="(tipo,index) in tipos" :key="index" :value='index'>
                {{tipo.name}}
            </b-form-select-option>
@@ -47,7 +47,7 @@ export default {
     this.retornaTipos()
     if(this.$route.params.id){
           this.tiposelecionado =this.$route.params.id          
-          this.retornaTipo(this.tiposelecionado)          
+          this.retornaTipo(this.tiposelecionado,false)          
     }
   },  
   watch:{
@@ -63,7 +63,7 @@ export default {
           handler() {                
               //console.log(this.$route.params)  
               this.tiposelecionado =this.$route.params.id
-              this.retornaTipos(tiposelecionado)        
+              this.retornaTipos(tiposelecionado,false)        
           }
       }
   },
@@ -79,8 +79,12 @@ export default {
         this.tipos = jsonData.results
         }) 
     },
-    retornaTipo(tipo){
-      window.history.pushState('page', tipo, "/tipo/"+tipo);
+    retornaTipo(tipo,botao){
+      if(botao){
+
+        window.history.pushState('page', tipo, "/tipo/"+tipo);
+      }
+
       if(tipo === 0){
         return false
       }

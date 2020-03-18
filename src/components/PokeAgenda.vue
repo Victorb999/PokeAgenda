@@ -1,7 +1,7 @@
 <template>
   <div class="pokeagenda-box-container">
     <b-jumbotron class="div-busca">
-      <b-form inline @submit.prevent="BuscaPokemon">
+      <b-form inline @submit.prevent="BuscaPokemon(true)">
         <b-input
           id="inline-form-input-name"
           class="mb-2 mr-sm-2 mb-sm-0"
@@ -68,19 +68,22 @@ export default {
             handler() {                
                 //console.log(this.$route.params)  
                 this.pokemon =this.$route.params.id
-                this.BuscaPokemon()          
+                this.BuscaPokemon(false)          
             }
         }
     },
     mounted(){
         if(this.$route.params.id){
             this.pokemon =this.$route.params.id
-            this.BuscaPokemon()
+            this.BuscaPokemon(false)
         }
     },
     methods:{
-        BuscaPokemon(){
-            window.history.pushState('page', this.pokemon, "/pokemon/"+this.pokemon);
+        BuscaPokemon(botao){
+            if(botao){
+                window.history.pushState('page', this.pokemon, "/pokemon/"+this.pokemon);
+            }
+
             if(this.pokemon === ''){
                 return false
             }            
