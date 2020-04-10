@@ -3,8 +3,18 @@
     background: $ghost
     color: $white
     border-radius: 5px
-    width: 10%
+    width: 15%
     text-align: center
 
 .name-generation
     text-transform: uppercase !important
+
+
+@media (max-width: $layout-breakpoint-small)
+    .name-region
+        width: 100%
+    .select-tipo
+        width: 50%
+@media (max-width: $layout-breakpoint-medium)
+    .name-region
+        width: 40%
