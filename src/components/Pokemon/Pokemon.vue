@@ -1,6 +1,6 @@
 <template>
     <b-container class="pokemon-main-div">       
-
+    <div v-if='carregado'>   
         <div class='titulo'>
                 <b-img :src='pokeresposta.sprites.front_default' :alt='pokeresposta.name' v-if="pokeresposta.sprites.front_default"/>
                 <h3 class="pokenome"> #{{pokeresposta.id}} {{pokeresposta.name}}
@@ -16,7 +16,7 @@
         
             <b-col>
                 <div class="infos" :class='tipo[0].type.name'>
-                   <h3>Infos</h3>  
+                   <h3>{{alcunha}}</h3>  
                    <div class="poke-descricao" >
                         <span v-if="descricao">
                             <h4>Description</h4>
@@ -48,32 +48,31 @@
             </b-col>            
         </b-row>
 
-        <!-- <b-row>  
-            <b-col>
-                <h4>Status base</h4>
-                <ul class="lista-atributos">
-                    <li v-for='(status,index) in pokeresposta.stats' :key='index'>
-                    <b-badge class="badge-status">{{status.stat.name}}</b-badge><b-icon-arrow-right-short></b-icon-arrow-right-short>
-                    <span> {{status.base_stat}}</span>          
-                    </li>
-                </ul>
-            </b-col>
-        </b-row> -->
-
         <b-row>
             <b-col>
                 <Evolucoes :evolucoes="evolucoes" :evolucoesUrl="evolucoesURL" v-if="evolucoes.length > 1"/>
             </b-col>
         </b-row>
-        
+
+        <b-row>
+            <b-col>
+                <Formas :variedades='especie.varieties' v-if="variedadevalido()" :color='tipo[0].type.name'/>
+            </b-col>
+        </b-row>
+    </div> 
+    <div v-else class="loading">
+        <img :src="pokebolaLoad" alt="Loading" class='pokeloading'>
+    </div>    
     </b-container>
 </template>
 
 <script>
 import Evolucoes from '@/components/Pokemon/Evolucoes.vue'
+import Formas from '@/components/Pokemon/Formas.vue'
 export default {
     components: {
-        Evolucoes
+        Evolucoes,
+        Formas
     },
     props:{
         pokeresposta:Object
@@ -86,7 +85,10 @@ export default {
             evolucao: [],
             evolucoes: [],
             evolucoesURL : [],
-            descricao: ''            
+            descricao: '',
+            alcunha:'',
+            formas:[],
+            carregado: false            
         }
     },
     watch:{
@@ -96,7 +98,9 @@ export default {
                 this.setaImg()
                 this.evolucoes = []
                 this.evolucoesURL = []
-                this.descricao = '' 
+                this.descricao = ''
+                this.alcunha = ''
+                this.carregado = false
                 this.buscaespecie(this.pokeresposta.species.url)               
             }
         },
@@ -127,6 +131,15 @@ export default {
             .then((response) =>{                    
                 this.especie = response.data 
 
+                 response.data.genera.map((alc,index)=>{
+                    
+                    if(alc.language.name === 'en'){
+                        if(this.alcunha === ''){
+                            this.alcunha =  alc.genus
+                        }
+                    }
+                })
+
                 response.data.flavor_text_entries.map((desc,index)=>{
                     
                     if(desc.language.name === 'en'){
@@ -141,6 +154,7 @@ export default {
                 if(response.data.evolution_chain.url){
                     this.buscaEvolucao(response.data.evolution_chain.url)
                 }
+                this.carregado = true
             //console.log(response)
             })
             .catch((err)=>{
@@ -177,7 +191,19 @@ export default {
                     }
                  })
             }
+        },
+        variedadevalido(){
+            if(typeof this.especie.varieties  === 'undefined'){
+                return false
+            }
+            else if(this.especie.varieties.length === 1){
+                return false
+            } 
+            else{
+                return true
+            }
         }
+
     }
 }
 </script>

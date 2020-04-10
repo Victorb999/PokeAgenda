@@ -31,7 +31,7 @@
         </b-jumbotron>
 
         <div class="div-statusbase">
-            <StatusBase  v-if='apistatus' :pokeresposta='pokeresposta.stats'/>
+            <StatusBase  v-if='apistatus' :pokeresposta='pokeresposta.stats' :color='pokeresposta.types'/>
         </div>
         <div class="div-habilidades">
             <Habilidades  v-if='apistatus' :pokeresposta='pokeresposta.abilities'/>
