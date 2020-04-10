@@ -7,33 +7,42 @@
                 </h3>
         </div>
         <b-row>
-            <b-col cols="6" class="pokemon-foto">
-
-                <b-img :src='fotourl'
-                :alt="pokeresposta.name" class="fotogrande" />                
-               
+            <b-col >
+                <div class="pokemon-foto">
+                    <b-img :src='fotourl'
+                    :alt="pokeresposta.name" class="fotogrande" />                
+                </div>
             </b-col>
         
             <b-col>
-                <div class="infos">
-                   <h4>Description</h4>    
-                    <span v-if="descricao" class="poke-descricao">
-                        {{descricao}}
-                    </span>
+                <div class="infos" :class='tipo[0].type.name'>
+                   <h3>Infos</h3>  
+                   <div class="poke-descricao" >
+                        <span v-if="descricao">
+                            <h4>Description</h4>
+                            {{descricao}}
+                        </span>
+                    </div> 
 
-                    <h5 v-if="especie.habitat">Habitat: {{especie.habitat.name}}</h5>
-                    <h5 v-if="especie.shape">Body: {{especie.shape.name}}</h5>
-                  
-                    <h5>Height: {{pokeresposta.height/10}} m</h5>
-                    <h5>Weight: {{pokeresposta.weight/10}} kg</h5>
-                    <h4>Type</h4>
-                     <div class="tipos">
-                        <h4 v-for='(tipos,index) in tipo' :key='index'  class="texto-tipo">
-                            <router-link :to="`/tipo/${tipo[index].type.name}`">  
-                                <b-badge :class='tipo[index].type.name'>{{tipo[index].type.name}}  </b-badge> 
-                            </router-link>       
-                        </h4>
+                    <div class="poke-extrainfo">
+                        <h5 v-if="especie.habitat">Habitat: {{especie.habitat.name}}</h5>
+                        <h5 v-if="especie.shape">Body: {{especie.shape.name}}</h5>
+                    
+                        <h5>Height: {{pokeresposta.height/10}} m</h5>
+                        <h5>Weight: {{pokeresposta.weight/10}} kg</h5>
+                        
                     </div>
+
+                    <div class="poke-tipos">
+                        <h4>Type</h4>
+                        <div class="tipos">
+                            <h4 v-for='(tipos,index) in tipo' :key='index'  class="texto-tipo">
+                                <router-link :to="`/tipo/${tipo[index].type.name}`">  
+                                    <b-badge :class='tipo[index].type.name'>{{tipo[index].type.name}}  </b-badge> 
+                                </router-link>       
+                            </h4>
+                        </div>
+                    </div>                
                 </div>
                 
             </b-col>            
