@@ -1,6 +1,5 @@
 <template>
-    <div>
-       
+    <div>       
        
       <b-jumbotron class="div-busca">
         <label for="select-tipo">Select a generation </label> 
@@ -11,19 +10,24 @@
        </b-form-select>
       </b-jumbotron>
 
-      <div class="msg-box-container container">
-        <h4>{{msg}}</h4>
-        <h1 v-if='retornou' class="name-generation">{{retornoGeracao.name}}</h1>
-        <h2 v-if='retornou' class="name-region">{{retornoGeracao.main_region.name}}</h2>    
-      </div>
-        <div class="geracoes-box-container" v-if='retornou'>
-                  
-          
-          <GeracoesPokemon :retornoGeracao="retornoGeracao.pokemon_species" />
-           <!-- {{retornoGeracao.types}}
-           {{retornoGeracao.pokemon_species}} -->
-            
+      
+        <div class="msg-box-container container">
+          <h4>{{msg}}</h4>
+          <h1 v-if='retornou' class="name-generation">{{retornoGeracao.name}}</h1>
+          <h2 v-if='retornou' class="name-region">{{retornoGeracao.main_region.name}}</h2>    
         </div>
+        <div class="containerpokemon" v-if='carregado'>
+          <div class="geracoes-box-container" v-if='retornou'>
+                    
+            
+            <GeracoesPokemon :retornoGeracao="retornoGeracao.pokemon_species" />
+            <!-- {{retornoGeracao.types}}
+            {{retornoGeracao.pokemon_species}} -->
+              
+          </div>
+        </div>
+      <div v-else class='loading'><img :src='pikachuLoad' alt="Loading"></div>
+
     </div>
 </template>
 
@@ -40,7 +44,8 @@ export default {
       geracoeselecionado: '',
       retornoGeracao:[],
       retornou: false,
-      msg:"Search for a generation."
+      msg:"Search for a generation.",
+      carregado:false,
     }
   },   
   mounted(){
@@ -54,6 +59,7 @@ export default {
         geracoeselecionado:{
             immediate: true,
             handler() {              
+              this.carregado = false
               this.retornoGeracao=[],
               this.retornou= false,
               this.msg="Search for a generation."
@@ -62,6 +68,7 @@ export default {
         $route:{
             handler() {                
                 //console.log(this.$route.params)  
+                this.carregado = false
                 this.geracoeselecionado =this.$route.params.id
                 this.retornaGeracao(geracoeselecionado)        
             }
@@ -93,9 +100,11 @@ export default {
         .then((jsonData) =>{
         this.retornoGeracao = jsonData
         this.retornou = true 
-        this.msg = ''       
+        this.msg = ''
+        this.carregado = true      
         })
         .catch((err)=>{
+            this.carregado = true
             this.retornou = false
             this.msg = "This generation isn't valid."
         }) 

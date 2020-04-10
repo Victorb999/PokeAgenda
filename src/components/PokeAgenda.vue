@@ -18,27 +18,29 @@
       </b-form>
     </b-jumbotron>
 
-    <b-jumbotron class="div-resultado">
-       <Pokemon 
-       v-if='apistatus'
-       :pokeresposta='pokeresposta'
-       />
-       <span 
-       v-else-if='!apistatus'>
-        {{msg}}
-       </span>
-    </b-jumbotron>
+    <div class="containerpokemon" v-if='carregado'>
+        <b-jumbotron class="div-resultado">
+        <Pokemon 
+        v-if='apistatus'
+        :pokeresposta='pokeresposta'
+        />
+        <span 
+        v-else-if='!apistatus'>
+            {{msg}}
+        </span>
+        </b-jumbotron>
 
-    <div class="div-statusbase">
-        <StatusBase  v-if='apistatus' :pokeresposta='pokeresposta.stats'/>
+        <div class="div-statusbase">
+            <StatusBase  v-if='apistatus' :pokeresposta='pokeresposta.stats'/>
+        </div>
+        <div class="div-habilidades">
+            <Habilidades  v-if='apistatus' :pokeresposta='pokeresposta.abilities'/>
+        </div>
+        <div class="div-attacks">
+            <Attacks  v-if='apistatus' :pokeresposta='pokeresposta.moves'/>
+        </div>
     </div>
-    <div class="div-habilidades">
-        <Habilidades  v-if='apistatus' :pokeresposta='pokeresposta.abilities'/>
-    </div>
-    <div class="div-attacks">
-        <Attacks  v-if='apistatus' :pokeresposta='pokeresposta.moves'/>
-    </div>
-
+    <div v-else class='loading'><img :src='pikachuLoad' alt="Loading" class='m-10'></div>
     
   </div>
 </template>
@@ -60,13 +62,15 @@ export default {
             pokemon: '',
             apistatus: false,
             msg: 'Search for a pokemon, enter the name or the number.',
-            pokeresposta: {}
+            pokeresposta: {},
+            carregado: false
         }
     },
     watch:{
         $route:{
             handler() {                
                 //console.log(this.$route.params)  
+                this.carregado = false
                 this.pokemon =this.$route.params.id
                 this.BuscaPokemon(false)          
             }
@@ -92,12 +96,13 @@ export default {
                     this.pokemon=''
                     this.apistatus = true
                     this.pokeresposta = response.data
-                   
+                    this.carregado = true
             //console.log(response)
             })
             .catch((err)=>{
                 this.apistatus = false
                 this.msg = "Enter a valid pokemon."
+                this.carregado = true
             })
             
         },
