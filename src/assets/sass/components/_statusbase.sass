@@ -1,9 +1,15 @@
 .status-box-container
-    margin-top: 10px
-
+    background: $cinza-claro
+    border-radius: 5px
+    padding: 10px
+    margin-top: 25px
+    h1 
+        text-align: center
 .lista-atributos
-    margin: 10px
-    padding: 0
+    display: flex        
+    flex-wrap: wrap
+    flex-direction: row
+    justify-content: center
 .badge-status
     margin: 2px
     font-weight: normal
@@ -11,10 +17,27 @@
     vertical-align: mid
     font-size: 16px
     letter-spacing: 1px
-
-@media (max-width: $layout-breakpoint-small)
+.lista-base-status
+    list-style: none
+    padding: 0
+.grafico
+    width: 50%
+.apexcharts-xaxis-label
+    font-family: $font
+    font-size: 12px
+    font-weight: bold
+    color: $cinza-escurao
+@media (max-width: $layout-breakpoint-medium)
     .badge-status
         font-weight: lighter
         font-size: 12px
         letter-spacing: 0 
-    
+    .lista-atributos
+        flex-direction: column;
+        flex-flow: column-nowrap;
+        align-items: flex-stretch;
+    .grafico
+        width: 100%
+    .lista-base-status
+        list-style: none
+        text-align: center
