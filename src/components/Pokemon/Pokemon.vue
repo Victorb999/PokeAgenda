@@ -48,9 +48,15 @@
             </b-col>            
         </b-row>
 
+        <b-row>            
+            <b-col>
+                <StatusBase  :pokeresposta='pokeresposta.stats' :color='pokeresposta.types'/>
+            </b-col>
+        </b-row>
+
         <b-row>
             <b-col>
-                <Evolucoes :evolucoes="evolucoes" :evolucoesUrl="evolucoesURL" v-if="evolucoes.length > 1"/>
+                <Evolucoes :evolucoes="evolucoes" :evolucoesUrl="evolucoesURL" v-if="evolucoes.length > 1" :color='tipo[0].type.name'/>
             </b-col>
         </b-row>
 
@@ -69,10 +75,12 @@
 <script>
 import Evolucoes from '@/components/Pokemon/Evolucoes.vue'
 import Formas from '@/components/Pokemon/Formas.vue'
+import StatusBase from '@/components/Pokemon/StatusBase.vue'
 export default {
     components: {
         Evolucoes,
-        Formas
+        Formas,
+        StatusBase
     },
     props:{
         pokeresposta:Object
