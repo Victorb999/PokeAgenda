@@ -10,12 +10,20 @@
         ></b-input>
 
         <b-button 
-        @click='BuscaPokemon' 
+        @click='BuscaPokemon(true)' 
         variant="success">Search</b-button>
 
         <b-button @click='reseta' 
-        type="reset" variant="danger">Reset</b-button>        
-      </b-form>
+        type="reset" variant="danger">Reset</b-button>   
+
+        <b-button 
+        @click='BuscaRandom' 
+        variant="warning"
+        class='branco' v-b-tooltip.hover.bottom title="Search for a random pokemon" placement="bottom">
+        Random
+        </b-button>
+        </b-form>
+
     </b-jumbotron>
 
     <div class="containerpokemon" v-if='carregado'>
@@ -105,6 +113,13 @@ export default {
                 this.carregado = true
             })
             
+        },
+        BuscaRandom(){
+            const min = Math.ceil(1)
+            const max = Math.floor(807)   
+            let random = Math.floor(Math.random() * (max - min)) + min
+            this.pokemon =random
+            this.BuscaPokemon(true)
         },
         reseta(){
             this.pokemon=''
