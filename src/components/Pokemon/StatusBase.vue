@@ -37,10 +37,23 @@ export default {
                 name: 'Stats',
                 data: [],
             }],
-            chartOptions: {
+            chartOptions: {                
                 chart: {
                     height: 350,
                     type: 'radar',
+                        animations: {
+                            enabled: true,
+                            easing: 'easeinout',
+                            speed: 800,
+                            animateGradually: {
+                                enabled: true,
+                                delay: 150
+                            },
+                            dynamicAnimation: {
+                                enabled: true,
+                                speed: 350
+                            }
+                        }
                 },
                 responsive: [{
                     breakpoint: 500,
@@ -73,27 +86,35 @@ export default {
                 },
                 yaxis:{
                     min: 0,
-                    max:200,
+                    max:200, 
+                        labels: {
+                        show: false,
+                        style: {
+                            colors: [],
+                            fontSize: '0px',
+                        },
+
+                    },               
                 },
                 dataLabels: {
-                    enabled: true,
+                    enabled: false,
                 },
                 plotOptions: {
                     radar: {
                             size: 140,
                             polygons: {
                                 strokeColor: '#e9e9e9',
-                            fill: {
-                                colors: ['#f8f8f8', '#fff']
+                                fill: {
+                                    colors: ['#f8f8f8', '#fff']
+                                }
                             }
-                        }
                     }
                 },            
                 colors: ['#FF4560'],
                 markers: {
-                    size: 4,
+                    size: 2,
                     colors: ['#fff'],
-                    strokeColor: '#FF4560',
+                    strokeColor: '#000',
                     strokeWidth: 1,
                 },
                 
