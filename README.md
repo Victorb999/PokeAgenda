@@ -1,7 +1,20 @@
-# pokeagenda
+<br/>
+<div align="center">
+  <h2>PokeAgenda feita em VUEJS</h2>
+	<img src="https://i.ibb.co/RyCBXHj/Prancheta-4.png" alt="PokeAgenda" />
+  
+  <img src="https://i.ibb.co/mh0FBbT/Mockup-PREVIA-2.png" alt="Mockup-PREVIA-2" border="0" />
+  Consumindo a api do [pokeapi.co](https://pokeapi.co)
+
+</div>
+
+
+
+
 ```
-Pokeagenda feita em VUEJS
-Consumindo a api do https://pokeapi.co/
+Projeto de estudo de vue js
+Sistema permite buscar pokémons por nome, número, tipo e geração.
+Mostra informações detalhadas de todos pokémons até a 7ª geração.
 ```
 
 ## Project setup
