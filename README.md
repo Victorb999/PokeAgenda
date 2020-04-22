@@ -5,18 +5,15 @@
   <br />
   <img src="https://i.ibb.co/mh0FBbT/Mockup-PREVIA-2.png" alt="Mockup-PREVIA-2" border="0" />
   <br />
-  Consumindo a api do [pokeapi.co](https://pokeapi.co)
+	Consumindo a api do <a href="https://pokeapi.co/"> Pokeapi</a>
+   <br />
+
+<h3>Projeto de estudo de vue js</h3>
+<p>Sistema permite buscar pokémons por nome, número, tipo e geração.</p>
+<p>Mostra informações detalhadas de todos pokémons até a 7ª geração.</p>
 
 </div>
-
-
-
-
-```
-Projeto de estudo de vue js
-Sistema permite buscar pokémons por nome, número, tipo e geração.
-Mostra informações detalhadas de todos pokémons até a 7ª geração.
-```
+   <br />
 
 ## Project setup
 ```
