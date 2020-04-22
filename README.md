@@ -2,7 +2,7 @@
 <div align="center">
   <h2>PokeAgenda feita em VUEJS</h2>
 	<a href="https://victorb999.github.io/PokeAgenda/" alt="Pokeagenda">
-		<img src="https://i.ibb.co/RyCBXHj/Prancheta-4.png" alt="PokeAgenda" />
+	<img src="https://i.ibb.co/1zK3Jcq/Prancheta-4.png" alt="PokeAgenda" border="0">
 	</a>
   <br />
   <img src="https://i.ibb.co/mh0FBbT/Mockup-PREVIA-2.png" alt="Mockup-PREVIA-2" border="0" />
