@@ -2,8 +2,9 @@
 <div align="center">
   <h2>PokeAgenda feita em VUEJS</h2>
 	<img src="https://i.ibb.co/RyCBXHj/Prancheta-4.png" alt="PokeAgenda" />
-  
+  <br />
   <img src="https://i.ibb.co/mh0FBbT/Mockup-PREVIA-2.png" alt="Mockup-PREVIA-2" border="0" />
+  <br />
   Consumindo a api do [pokeapi.co](https://pokeapi.co)
 
 </div>
