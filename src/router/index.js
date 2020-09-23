@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: PokeAgenda
+    component: Home
   },
   {
     path: '/tipo',

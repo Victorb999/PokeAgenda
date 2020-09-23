@@ -133,6 +133,7 @@ export default {
             else{
                 this.fotourl = "https://toyama.com.br/images/imagens.png"                
             }
+            //https://serebii.net/art/th/105-a.png
         },
         async  buscaespecie(url){
             await this.$http.get(url)          

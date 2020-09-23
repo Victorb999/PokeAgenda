@@ -9,7 +9,7 @@ import lodash from 'lodash'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/sass/index.sass'
-
+import store from './store'
 import App from './App.vue'
 
 // Install BootstrapVue
@@ -57,5 +57,6 @@ Vue.use(VueLodash, { name: 'custom' , lodash: lodash })
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
