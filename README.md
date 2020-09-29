@@ -1,8 +1,4 @@
-# pokeagenda
-```
-Pokeagenda feita em VUEJS
-Consumindo a api do https://pokeapi.co/
-```
+# pokeagendats
 
 ## Project setup
 ```
@@ -17,6 +13,11 @@ yarn serve
 ### Compiles and minifies for production
 ```
 yarn build
+```
+
+### Lints and fixes files
+```
+yarn lint
 ```
 
 ### Customize configuration
