@@ -1,31 +1,45 @@
 <template>
-  <div>
-    Pokemon
-    <span v-if="state.apiOk">
-      {{ state.pokeresposta.name }}
-    </span>
+  <SearchPokemon />
+  <div class="containerpokemon" v-if="state.apiOk">
+    <div class="div-resultado jumbotron">
+      <PokemonPerfil :pokeresposta="state.pokeresposta" />
+    </div>
+  </div>
+  <div v-else class="loading">
+    <img
+      :src="require('@/assets/gifs/pikachu-loading.gif')"
+      alt="Loading"
+      class="m-10"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { reactive, computed, defineComponent, onMounted } from "vue";
 import ApiPokemon from "@/core/ApiPokemon.ts";
+import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
+import PokemonPerfil from "@/components/Pokemon/PokemonPerfil.vue"; // @ is an alias to /src
+import { reactive, defineComponent, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 
 export default defineComponent({
   name: "pokemon",
+  components: {
+    SearchPokemon,
+    PokemonPerfil,
+  },
   setup() {
-    const {
-      params: { id }
-    } = useRoute();
+    // const {
+    //   params: { id },
+    // } = useRoute();
 
+    const route = useRoute();
     interface Pokemon {
       pokemon: string;
       pokeresposta: object;
       apiOk: boolean;
     }
     const state = reactive({
-      pokemon: computed(() => id),
+      pokemon: route.params.id,
       pokeresposta: {},
       apiOk: false
     }) as Pokemon;
@@ -34,7 +48,7 @@ export default defineComponent({
       const request = new ApiPokemon();
 
       await request
-        .getPokemon(state.pokemon)
+        .getPokemon(state.pokemon, "pokemon")
         .then(response => {
           state.pokeresposta = response;
           state.apiOk = true;
@@ -43,6 +57,13 @@ export default defineComponent({
           console.log(err);
         });
     }
+    watch(
+      () => route.params,
+      async params => {
+        state.pokemon = params.id.toString();
+        BuscaPokemon();
+      }
+    );
     onMounted(() => {
       // ...
       BuscaPokemon();
@@ -51,6 +72,6 @@ export default defineComponent({
       state,
       BuscaPokemon
     };
-  }
+  },
 });
 </script>

@@ -8,11 +8,11 @@ class ApiPokemon {
   }
 
   //busca o champ pelo id
-  async getPokemon(id: string) {
+  async getPokemon(id: string,url: string) {
     let pokeResposta = {};
     await axios({
       method: "get",
-      url: `${this.urlpadrao}/pokemon/${id}`
+      url: `${this.urlpadrao}/${url}/${id}`
     })
       .then(response => {
         pokeResposta = response.data;

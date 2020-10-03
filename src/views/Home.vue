@@ -1,8 +1,8 @@
 <template>
   <div class="home">
+    <search-pokemon />
     <img alt="Vue logo" src="../assets/gifs/pikachu-loading.gif" />
     <h1>Rebuilding with TS + vue3</h1>
-    <search-pokemon />
   </div>
 </template>
 
