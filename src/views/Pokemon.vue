@@ -3,6 +3,7 @@
   <div class="containerpokemon" v-if="state.apiOk">
     <div class="div-resultado jumbotron">
       <PokemonPerfil :pokeresposta="state.pokeresposta" />
+      <PokemonEvolutions :pokeresposta="state.pokeresposta" />
     </div>
   </div>
   <div v-else class="loading">
@@ -17,15 +18,18 @@
 <script lang="ts">
 import ApiPokemon from "@/core/ApiPokemon.ts";
 import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
-import PokemonPerfil from "@/components/Pokemon/PokemonPerfil.vue"; // @ is an alias to /src
-import { reactive, defineComponent, onMounted, watch } from "vue";
+import PokemonPerfil from "@/components/Pokemon/PokemonPerfil.vue";
+import PokemonEvolutions from "@/components/Pokemon/PokemonEvolutions.vue";
+import { reactive, defineComponent, onMounted, watch, computed } from "vue";
 import { useRoute } from "vue-router";
+import store from "@/store/store";
 
 export default defineComponent({
   name: "pokemon",
   components: {
     SearchPokemon,
     PokemonPerfil,
+    PokemonEvolutions
   },
   setup() {
     // const {
@@ -40,7 +44,7 @@ export default defineComponent({
     }
     const state = reactive({
       pokemon: route.params.id,
-      pokeresposta: {},
+      pokeresposta: computed(() => store().pokeresposta.value),
       apiOk: false
     }) as Pokemon;
 
@@ -50,7 +54,7 @@ export default defineComponent({
       await request
         .getPokemon(state.pokemon, "pokemon")
         .then(response => {
-          state.pokeresposta = response;
+           store().setPokeresposta(response);
           state.apiOk = true;
         })
         .catch(err => {
