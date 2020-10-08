@@ -11,10 +11,10 @@ export default function createStore() {
     state.pokeresposta = x;
   }
 
-  function getPokeresposta() {
-    console.log(state.pokeresposta);
-    return state.pokeresposta;
-  }
+  // function getPokeresposta() {
+  //   console.log(state.pokeresposta);
+  //   return state.pokeresposta;
+  // }
 
   return { ...toRefs(state), setPokeresposta };
 }

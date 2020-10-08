@@ -60,6 +60,16 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <PokemonEvolutions
+            v-if="state.evolucoes.length > 1"
+            :evolucoes="state.evolucoes"
+            :evolucoesUrl="state.evolucoesURL"
+            :color="state.tipo[0].type.name"
+          />
+        </div>
+      </div>
     </div>
     <div v-else class="loading">
       <img
@@ -72,7 +82,7 @@
 </template>
 
 <script lang="ts">
-/* TODO: 
+/* TODO:
 Especies
 types
 forms
@@ -84,11 +94,15 @@ paranaue de alola e forms em geral
 */
 
 import ApiPokemon from "@/core/ApiPokemon.ts";
+import PokemonEvolutions from "@/components/Pokemon/PokemonEvolutions.vue";
 //import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
 import { reactive, defineComponent, onMounted, watch } from "vue";
 
 export default defineComponent({
   name: "pokemon-perfil",
+  components: {
+    PokemonEvolutions,
+  },
   props: {
     pokeresposta: Object,
   },
@@ -98,7 +112,7 @@ export default defineComponent({
       tipo: Array<string>;
       carregado: boolean;
       especie: Array<string>;
-      evolucao: Array<string>;
+      evolucao: any;
       evolucoes: Array<string>;
       evolucoesURL: Array<string>;
       descricao: string;
@@ -137,46 +151,6 @@ export default defineComponent({
         console.error(" props undefined");
       }
     }
-
-    async function BuscaEspecie() {
-      const request = new ApiPokemon();
-      if (props.pokeresposta !== undefined) {
-        let idspecie = props.pokeresposta.species.url.replace("https://pokeapi.co/api/v2/pokemon-species/","")
-        idspecie = idspecie.replace("/", "");
-        await request
-          .getPokemon(idspecie, "pokemon-species")
-          .then((response: any) => {
-            state.especie = response;
-            response.genera.map((alc: any) => {
-              if (alc.language.name === "en") {
-                //if (state.alcunha === "") {
-                state.alcunha = alc.genus;
-                //}
-              }
-            });
-
-            response.flavor_text_entries.map((desc: any) => {
-              if (desc.language.name === "en") {
-                if (state.descricao === "") {
-                  state.descricao = state.descricao + desc.flavor_text;
-                }
-              }
-            });
-
-            //console.log(response.data.evolution_chain.url)
-            // if (response.evolution_chain.url) {
-            //   state.buscaEvolucao(response.evolution_chain.url);
-            // }
-            state.carregado = true;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      } else {
-        console.error(" props undefined");
-      }
-    }
-
     function reset() {
       state.tipo = [];
       state.fotourl = "";
@@ -189,12 +163,109 @@ export default defineComponent({
       state.formas = [];
       state.carregado = false;
     }
+    function setaEvolucao() {
+      if (state.evolucao) {
+        //return true
+        state.evolucoes = [
+          ...state.evolucoes,
+          state.evolucao.chain.species.name,
+        ];
+        state.evolucoesURL = [
+          ...state.evolucoesURL,
+          state.evolucao.chain.species.url,
+        ];
+        state.evolucao.chain.evolves_to.map((ev: any, index: number) => {
+          state.evolucoes = [...state.evolucoes, ev.species.name];
+          state.evolucoesURL = [...state.evolucoesURL, ev.species.url];
+
+          if (ev.evolves_to.length > 0) {
+            state.evolucoes = [
+              ...state.evolucoes,
+              ev.evolves_to[index].species.name,
+            ];
+            state.evolucoesURL = [
+              ...state.evolucoesURL,
+              ev.evolves_to[index].species.url,
+            ];
+          }
+        });
+      }
+    }
+
+    async function buscaEvolucao(id: string) {
+      const request = new ApiPokemon();
+      await request
+        .getPokemon(id, "evolution-chain")
+        .then((response: any) => {
+          state.evolucao = response;
+        })
+        .catch((err: any) => {
+          state.evolucao = [{ erro: err }];
+        });
+    }
+
+    async function BuscaEspecie() {
+      const request = new ApiPokemon();
+      if (props.pokeresposta !== undefined) {
+        let idspecie = props.pokeresposta.species.url.replace(
+          "https://pokeapi.co/api/v2/pokemon-species/",
+          ""
+        );
+        idspecie = idspecie.replace("/", "");
+        await request
+          .getPokemon(idspecie, "pokemon-species")
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .then((response: any) => {
+            state.especie = response;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            response.genera.map((alc: any) => {
+              if (alc.language.name === "en") {
+                //if (state.alcunha === "") {
+                state.alcunha = alc.genus;
+                //}
+              }
+            });
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            response.flavor_text_entries.map((desc: any) => {
+              if (desc.language.name === "en") {
+                if (state.descricao === "") {
+                  state.descricao = state.descricao + desc.flavor_text;
+                }
+              }
+            });
+
+            //console.log(response.evolution_chain.url)
+            if (response.evolution_chain.url) {
+              let idChain: string = response.evolution_chain.url.replace(
+                "https://pokeapi.co/api/v2/evolution-chain/",
+                ""
+              );
+              idChain = idChain.replace("/", "");
+              buscaEvolucao(idChain);
+            }
+            state.carregado = true;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
+        console.error(" props undefined");
+      }
+    }
+
     watch(
       () => props.pokeresposta,
-      async params => {
+      async () => {
         reset();
         setaImg();
         BuscaEspecie();
+      }
+    );
+    watch(
+      () => state.evolucao,
+      async () => {
+        setaEvolucao();
       }
     );
     onMounted(() => {
@@ -206,7 +277,10 @@ export default defineComponent({
     return {
       state,
       setaImg,
+      buscaEvolucao,
       BuscaEspecie,
+      reset,
+      setaEvolucao
     };
   },
 });

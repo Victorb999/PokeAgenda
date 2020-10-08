@@ -3,7 +3,6 @@
   <div class="containerpokemon" v-if="state.apiOk">
     <div class="div-resultado jumbotron">
       <PokemonPerfil :pokeresposta="state.pokeresposta" />
-      <PokemonEvolutions :pokeresposta="state.pokeresposta" />
     </div>
   </div>
   <div v-else class="loading">
@@ -19,7 +18,6 @@
 import ApiPokemon from "@/core/ApiPokemon.ts";
 import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
 import PokemonPerfil from "@/components/Pokemon/PokemonPerfil.vue";
-import PokemonEvolutions from "@/components/Pokemon/PokemonEvolutions.vue";
 import { reactive, defineComponent, onMounted, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 import store from "@/store/store";
@@ -28,8 +26,7 @@ export default defineComponent({
   name: "pokemon",
   components: {
     SearchPokemon,
-    PokemonPerfil,
-    PokemonEvolutions
+    PokemonPerfil
   },
   setup() {
     // const {
@@ -54,7 +51,7 @@ export default defineComponent({
       await request
         .getPokemon(state.pokemon, "pokemon")
         .then(response => {
-           store().setPokeresposta(response);
+          store().setPokeresposta(response);
           state.apiOk = true;
         })
         .catch(err => {
@@ -76,6 +73,6 @@ export default defineComponent({
       state,
       BuscaPokemon
     };
-  },
+  }
 });
 </script>
