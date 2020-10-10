@@ -1,52 +1,63 @@
 <template>
-  <div class="evolucoes-box" :class="color" v-if="state.carregado">
-    <h1 class="branco">Evolutions</h1>
+  <div class="formas-box" :class="color">
+    <h1 class="branco">Forms</h1>
 
-    <div v-if="evolucoes.length > 0" class="evolucoes-box-container">
+    <div v-if="variedades.length > 0" class="evolucoes-box-container">
       <div
         class="pokemons-lista-evol"
-        v-for="(pokemon, index) in evolucoes"
+        v-for="(pokemon, index) in variedades"
         :key="index + 'f'"
       >
-        <router-link :to="`/pokemon/${pokemon}`">
+        <router-link :to="`/pokemon/${pokemon.pokemon.name}`">
           <img
             :src="state.foto[index]"
             :alt="pokemon"
             v-if="state.foto[index]"
           />
-          <h5>{{ pokemon }}</h5>
+          <h5>{{ pokemon.pokemon.name }}</h5>
         </router-link>
       </div>
     </div>
   </div>
 </template>
-
 <script lang="ts">
 import { reactive, defineComponent, watch, onBeforeMount } from "vue";
 
 export default defineComponent({
-  name: "Evolutions",
+  name: "Forms",
   props: {
-    evolucoes: Array,
-    evolucoesUrl: Array,
+    variedades: Array,
     color: String
   },
   setup(props) {
     interface Evolution {
       foto: Array<string>;
       carregado: boolean;
+      id: string;
     }
     const state = reactive({
       foto: [],
-      carregado: false
+      carregado: false,
+      id: ""
     }) as Evolution;
 
+    function carregaId1() {
+      if (props.variedades !== undefined) {
+        let numeroString = props.variedades[0].pokemon.url.replace(
+          "https://pokeapi.co/api/v2/pokemon/",
+          ""
+        );
+        numeroString = numeroString.replace("/", "");
+        state.id = numeroString;
+      }
+    }
+
     function carregaFoto() {
-      if (props.evolucoesUrl !== undefined) {
+      if (props.variedades !== undefined) {
         let numeropoke = 0;
-        props.evolucoesUrl.map((retorno: any, index: number) => {
-          let numeroString = retorno.replace(
-            "https://pokeapi.co/api/v2/pokemon-species/",
+        props.variedades.map((retorno: any, index: number) => {
+          let numeroString = retorno.pokemon.url.replace(
+            "https://pokeapi.co/api/v2/pokemon/",
             ""
           );
           numeroString = numeroString.replace("/", "");
@@ -55,6 +66,11 @@ export default defineComponent({
             state.foto[
               index
             ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numeropoke}.png`;
+          } else if (retorno.pokemon.name.includes("alola")) {
+            carregaId1();
+            state.foto[
+              index
+            ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${state.id}-alola.png`;
           } else {
             state.foto[index] = "https://toyama.com.br/images/imagens.png";
           }
@@ -62,12 +78,13 @@ export default defineComponent({
         });
       }
     }
+
     onBeforeMount(() => {
       // ...
       carregaFoto();
     });
     watch(
-      () => props.evolucoes,
+      () => props.variedades,
       () => {
         carregaFoto();
       }

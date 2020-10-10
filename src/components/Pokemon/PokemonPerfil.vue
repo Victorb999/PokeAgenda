@@ -70,6 +70,15 @@
           />
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <PokemonForms
+            :variedades="state.especie.varieties"
+            v-if="variedadevalido()"
+            :color="state.tipo[0].type.name"
+          />
+        </div>
+      </div>
     </div>
     <div v-else class="loading">
       <img
@@ -95,6 +104,7 @@ paranaue de alola e forms em geral
 
 import ApiPokemon from "@/core/ApiPokemon.ts";
 import PokemonEvolutions from "@/components/Pokemon/PokemonEvolutions.vue";
+import PokemonForms from "@/components/Pokemon/PokemonForms.vue";
 //import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
 import { reactive, defineComponent, onMounted, watch } from "vue";
 
@@ -102,16 +112,17 @@ export default defineComponent({
   name: "pokemon-perfil",
   components: {
     PokemonEvolutions,
+    PokemonForms
   },
   props: {
-    pokeresposta: Object,
+    pokeresposta: Object
   },
   setup(props) {
     interface Pokemon {
       fotourl: string;
       tipo: Array<string>;
       carregado: boolean;
-      especie: Array<string>;
+      especie: any;
       evolucao: any;
       evolucoes: Array<string>;
       evolucoesURL: Array<string>;
@@ -129,7 +140,7 @@ export default defineComponent({
       descricao: "",
       alcunha: "",
       formas: [],
-      carregado: false,
+      carregado: false
     }) as Pokemon;
 
     function setaImg() {
@@ -141,6 +152,14 @@ export default defineComponent({
         state.tipo = props.pokeresposta.types;
         if (numero < 1000) {
           state.fotourl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${numero}.png`;
+        } else if (props.pokeresposta.name.includes("alola")) {
+          console.log(props.pokeresposta.species.url);
+          let numeroPoke = props.pokeresposta.species.url.replace(
+            "https://pokeapi.co/api/v2/pokemon-species/",
+            ""
+          );
+          numeroPoke = numeroPoke.replace("/", "");
+          state.fotourl = `https://serebii.net/art/th/${numeroPoke}-a.png`;
         } else {
           state.fotourl = "https://toyama.com.br/images/imagens.png";
         }
@@ -165,30 +184,33 @@ export default defineComponent({
     }
     function setaEvolucao() {
       if (state.evolucao) {
-        //return true
-        state.evolucoes = [
-          ...state.evolucoes,
-          state.evolucao.chain.species.name,
-        ];
-        state.evolucoesURL = [
-          ...state.evolucoesURL,
-          state.evolucao.chain.species.url,
-        ];
-        state.evolucao.chain.evolves_to.map((ev: any, index: number) => {
-          state.evolucoes = [...state.evolucoes, ev.species.name];
-          state.evolucoesURL = [...state.evolucoesURL, ev.species.url];
+        try {
+          state.evolucoes = [
+            ...state.evolucoes,
+            state.evolucao.chain.species.name
+          ];
+          state.evolucoesURL = [
+            ...state.evolucoesURL,
+            state.evolucao.chain.species.url
+          ];
+          state.evolucao.chain.evolves_to.map((ev: any, index: number) => {
+            state.evolucoes = [...state.evolucoes, ev.species.name];
+            state.evolucoesURL = [...state.evolucoesURL, ev.species.url];
 
-          if (ev.evolves_to.length > 0) {
-            state.evolucoes = [
-              ...state.evolucoes,
-              ev.evolves_to[index].species.name,
-            ];
-            state.evolucoesURL = [
-              ...state.evolucoesURL,
-              ev.evolves_to[index].species.url,
-            ];
-          }
-        });
+            if (ev.evolves_to.length > 0) {
+              state.evolucoes = [
+                ...state.evolucoes,
+                ev.evolves_to[index].species.name
+              ];
+              state.evolucoesURL = [
+                ...state.evolucoesURL,
+                ev.evolves_to[index].species.url
+              ];
+            }
+          });
+        } catch (err) {
+          state.evolucoes = [];
+        }
       }
     }
 
@@ -254,6 +276,15 @@ export default defineComponent({
       }
     }
 
+    function variedadevalido() {
+      if (typeof state.especie.varieties === "undefined") {
+        return false;
+      } else if (state.especie.varieties.length === 1) {
+        return false;
+      } else {
+        return true;
+      }
+    }
     watch(
       () => props.pokeresposta,
       async () => {
@@ -280,8 +311,9 @@ export default defineComponent({
       buscaEvolucao,
       BuscaEspecie,
       reset,
-      setaEvolucao
+      setaEvolucao,
+      variedadevalido
     };
-  },
+  }
 });
 </script>
