@@ -3,8 +3,8 @@
     <h1>Base status</h1>
 
     <div class="lista-atributos">
-      <ul class="lista-base-status">
-        <li v-for="(status, index) in pokeresposta" :key="index">
+      
+        <div v-for="(status, index) in pokeresposta" :key="index" class="col-md-2">
           <span
             class="badge-status badge badge-status badge-secondary"
             :class="color[0].type.name"
@@ -24,8 +24,8 @@
             </div>
           </div>
           <!-- <b-collapse v-if="(index+1)%3 === 0"></b-collapse>           -->
-        </li>
-      </ul>
+        </div>
+      
       <!--<div class="grafico">
         <div id="chart">
           <apexchart
