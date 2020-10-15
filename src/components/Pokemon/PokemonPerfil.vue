@@ -63,6 +63,15 @@
       </div>
       <div class="row">
         <div class="col">
+          <PokemonStatus
+            v-if="pokeresposta.stats.length > 1"
+            :pokeresposta="pokeresposta.stats"
+            :color="pokeresposta.types"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
           <PokemonEvolutions
             v-if="state.evolucoes.length > 1"
             :evolucoes="state.evolucoes"
@@ -106,6 +115,7 @@ paranaue de alola e forms em geral
 import ApiPokemon from "@/core/ApiPokemon.ts";
 import PokemonEvolutions from "@/components/Pokemon/PokemonEvolutions.vue";
 import PokemonForms from "@/components/Pokemon/PokemonForms.vue";
+import PokemonStatus from "@/components/Pokemon/PokemonStatus.vue";
 //import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
 import { reactive, defineComponent, onMounted, watch } from "vue";
 
@@ -113,7 +123,8 @@ export default defineComponent({
   name: "pokemon-perfil",
   components: {
     PokemonEvolutions,
-    PokemonForms
+    PokemonForms,
+    PokemonStatus
   },
   props: {
     pokeresposta: Object

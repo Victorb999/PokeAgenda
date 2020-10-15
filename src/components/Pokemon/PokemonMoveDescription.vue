@@ -70,7 +70,7 @@ import ApiPokemon from "@/core/ApiPokemon";
 import { reactive, defineComponent, watch } from "vue";
 
 export default defineComponent({
-  name: "Forms",
+  name: "MovesDescription",
   props: {
     move: Object
   },
