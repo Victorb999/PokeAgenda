@@ -26,7 +26,8 @@
             <div class="poke-descricao">
               <span v-if="state.descricao">
                 <h4>Description</h4>
-                {{ state.descricao }}
+                <!-- eslint-disable-next-line no-irregular-whitespace-->
+                {{ state.descricao.replace("", "") }}
               </span>
             </div>
 

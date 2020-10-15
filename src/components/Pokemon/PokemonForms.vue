@@ -26,11 +26,14 @@ import { reactive, defineComponent, watch, onBeforeMount } from "vue";
 export default defineComponent({
   name: "Forms",
   props: {
-    variedades: Array,
+    variedades: {
+      type: Array,
+      required: true
+    },
     color: String
   },
   setup(props) {
-    interface Evolution {
+    interface Form {
       foto: Array<string>;
       carregado: boolean;
       id: string;
@@ -39,11 +42,13 @@ export default defineComponent({
       foto: [],
       carregado: false,
       id: ""
-    }) as Evolution;
+    }) as Form;
 
     function carregaId1() {
-      if (props.variedades !== undefined) {
-        let numeroString = props.variedades[0].pokemon.url.replace(
+      if (typeof props.variedades !== undefined) {
+        // eslint-disable-next-line prettier/prettier
+        const variedades:Array<any> = props.variedades
+        let numeroString = variedades[0].pokemon.url.replace(
           "https://pokeapi.co/api/v2/pokemon/",
           ""
         );
@@ -93,6 +98,6 @@ export default defineComponent({
       state,
       carregaFoto
     };
-  },
+  }
 });
 </script>

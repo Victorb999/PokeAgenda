@@ -1,7 +1,7 @@
 import { reactive, toRefs } from "vue";
 
 interface Pokemon {
-  pokeresposta: object;
+  pokeresposta: any;
 }
 const state = reactive({
   pokeresposta: {}
