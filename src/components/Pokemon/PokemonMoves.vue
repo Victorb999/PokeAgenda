@@ -1,8 +1,9 @@
 <template>
   <div class="attacks-box-container container">
-    Ataques:
+    Moves:
     <span v-for="(moves, index) in state.pokeresposta.moves" :key="index">
-      <span type="button"
+      <span
+        type="button"
         class="badge badge-secondary"
         @click="setaMove(moves.move)"
         data-toggle="modal"
@@ -26,6 +27,7 @@ export default defineComponent({
   setup() {
     interface Move {
       moveselecionado: object;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       pokeresposta: any;
     }
     const state = reactive({
@@ -42,6 +44,6 @@ export default defineComponent({
       state,
       setaMove
     };
-  },
+  }
 });
 </script>

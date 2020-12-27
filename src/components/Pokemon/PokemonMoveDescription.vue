@@ -89,6 +89,7 @@ export default defineComponent({
     }) as Move;
 
     async function BuscaTipo() {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const move: any = props.move;
 
       let numeroString = move.url.replace(
@@ -99,6 +100,7 @@ export default defineComponent({
       const request = new ApiPokemon();
       await request
         .getPokemon(numeroString, "move")
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((response: any) => {
           state.descricao = response.effect_entries[0].effect.replace(
             /\$effect_chance/g,
@@ -128,7 +130,7 @@ export default defineComponent({
     );
 
     return {
-      state,
+      state
     };
   }
 });

@@ -62,6 +62,6 @@ export default defineComponent({
       BuscaRandom,
       BuscaPokemon
     };
-  },
+  }
 });
 </script>

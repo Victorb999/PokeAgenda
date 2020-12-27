@@ -34,12 +34,13 @@ export default defineComponent({
     interface Ability {
       habilidadeApi: Array<object>;
       retornoHabilidade: Array<object>;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       pokeresposta: any;
     }
     const state = reactive({
       habilidadeApi: [],
       retornoHabilidade: [],
-      pokeresposta: computed(() => store().pokeresposta.value),
+      pokeresposta: computed(() => store().pokeresposta.value)
     }) as Ability;
 
     async function carregaHabilidade(url: string) {
@@ -54,6 +55,7 @@ export default defineComponent({
       const request = new ApiPokemon();
       await request
         .getPokemon(url, "ability")
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((response: any) => {
           state.retornoHabilidade = [...state.retornoHabilidade, response];
         })
@@ -64,6 +66,7 @@ export default defineComponent({
 
     function buscaApi() {
       if (typeof state.pokeresposta !== undefined) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         state.pokeresposta.abilities.map((val: any) => {
           state.habilidadeApi = [...state.habilidadeApi, val.ability.url];
           let numeroString = val.ability.url.replace(
@@ -100,8 +103,8 @@ export default defineComponent({
       }
     );
     return {
-      state,
+      state
     };
-  },
+  }
 });
 </script>

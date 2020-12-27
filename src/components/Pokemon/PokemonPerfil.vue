@@ -115,7 +115,7 @@ paranaue de alola e forms em geral
 import ApiPokemon from "@/core/ApiPokemon.ts";
 import PokemonEvolutions from "@/components/Pokemon/PokemonEvolutions.vue";
 import PokemonForms from "@/components/Pokemon/PokemonForms.vue";
-import PokemonStatus from "@/components/Pokemon/PokemonStatus.vue";
+import PokemonStatus from "@/components/Pokemon/PokemonStatusList.vue";
 //import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
 import { reactive, defineComponent, onMounted, watch } from "vue";
 
@@ -134,7 +134,9 @@ export default defineComponent({
       fotourl: string;
       tipo: Array<string>;
       carregado: boolean;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       especie: any;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       evolucao: any;
       evolucoes: Array<string>;
       evolucoesURL: Array<string>;
@@ -165,7 +167,7 @@ export default defineComponent({
         if (numero < 1000) {
           state.fotourl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${numero}.png`;
         } else if (props.pokeresposta.name.includes("alola")) {
-          console.log(props.pokeresposta.species.url);
+          //console.log(props.pokeresposta.species.url);
           let numeroPoke = props.pokeresposta.species.url.replace(
             "https://pokeapi.co/api/v2/pokemon-species/",
             ""
@@ -205,6 +207,7 @@ export default defineComponent({
             ...state.evolucoesURL,
             state.evolucao.chain.species.url
           ];
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           state.evolucao.chain.evolves_to.map((ev: any, index: number) => {
             state.evolucoes = [...state.evolucoes, ev.species.name];
             state.evolucoesURL = [...state.evolucoesURL, ev.species.url];
@@ -230,9 +233,11 @@ export default defineComponent({
       const request = new ApiPokemon();
       await request
         .getPokemon(id, "evolution-chain")
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((response: any) => {
           state.evolucao = response;
         })
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .catch((err: any) => {
           state.evolucao = [{ erro: err }];
         });
