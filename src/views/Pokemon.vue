@@ -29,6 +29,7 @@ import PokemonMoves from "@/components/Pokemon/PokemonMoves.vue";
 import { reactive, defineComponent, onMounted, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 import store from "@/store/store";
+import { Pokedex } from "@/store/interfaces";
 
 export default defineComponent({
   name: "pokemon",
@@ -46,7 +47,7 @@ export default defineComponent({
     const route = useRoute();
     interface Pokemon {
       pokemon: string;
-      pokeresposta: object;
+      pokeresposta: Pokedex;
       apiOk: boolean;
     }
     const state = reactive({

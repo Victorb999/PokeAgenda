@@ -36,7 +36,7 @@ export default defineComponent({
     }) as Move;
 
     function setaMove(move: object) {
-      console.log(move);
+      //console.log(move);
       state.moveselecionado = move;
     }
 

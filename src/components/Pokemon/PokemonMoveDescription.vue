@@ -99,7 +99,7 @@ export default defineComponent({
       numeroString = numeroString.replace("/", "");
       const request = new ApiPokemon();
       await request
-        .getPokemon(numeroString, "move")
+        .getMove(numeroString, "move")
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((response: any) => {
           state.descricao = response.effect_entries[0].effect.replace(

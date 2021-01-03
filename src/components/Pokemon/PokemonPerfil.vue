@@ -232,7 +232,7 @@ export default defineComponent({
     async function buscaEvolucao(id: string) {
       const request = new ApiPokemon();
       await request
-        .getPokemon(id, "evolution-chain")
+        .getEspecie(id, "evolution-chain")
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((response: any) => {
           state.evolucao = response;
@@ -252,7 +252,7 @@ export default defineComponent({
         );
         idspecie = idspecie.replace("/", "");
         await request
-          .getPokemon(idspecie, "pokemon-species")
+          .getEspecie(idspecie, "pokemon-species")
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .then((response: any) => {
             state.especie = response;

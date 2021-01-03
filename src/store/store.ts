@@ -1,10 +1,10 @@
 import { reactive, toRefs } from "vue";
-
+import { Pokedex } from "@/store/interfaces";
 interface Pokemon {
-  pokeresposta: any;
+  pokeresposta: Pokedex;
 }
 const state = reactive({
-  pokeresposta: {},
+  pokeresposta: {} as Pokedex,
   colors: {
     normal: "#d3d3af",
     fighting: "#d56723",
@@ -29,7 +29,7 @@ const state = reactive({
   }
 }) as Pokemon;
 export default function createStore() {
-  function setPokeresposta(x: object) {
+  function setPokeresposta(x: Pokedex) {
     state.pokeresposta = x;
   }
 

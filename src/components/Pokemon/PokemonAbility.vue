@@ -54,7 +54,7 @@ export default defineComponent({
       //     })
       const request = new ApiPokemon();
       await request
-        .getPokemon(url, "ability")
+        .getAbility(url, "ability")
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((response: any) => {
           state.retornoHabilidade = [...state.retornoHabilidade, response];
