@@ -68,7 +68,7 @@
 <script lang="ts">
 import ApiPokemon from "@/core/ApiPokemon";
 import { reactive, defineComponent, watch } from "vue";
-
+import { PokeMoves } from "@/store/interfaces";
 export default defineComponent({
   name: "MovesDescription",
   props: {
@@ -78,13 +78,13 @@ export default defineComponent({
     interface Move {
       descricao: string;
       shortdescricao: string;
-      moveObj: object;
+      moveObj: PokeMoves;
       carregado: boolean;
     }
     const state = reactive({
       descricao: "",
       shortdescricao: "",
-      moveObj: {},
+      moveObj: {} as PokeMoves,
       carregado: false
     }) as Move;
 
