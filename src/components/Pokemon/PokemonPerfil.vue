@@ -112,37 +112,37 @@ FIXME:
 paranaue de alola e forms em geral
 */
 
-import ApiPokemon from "@/core/ApiPokemon.ts";
-import PokemonEvolutions from "@/components/Pokemon/PokemonEvolutions.vue";
-import PokemonForms from "@/components/Pokemon/PokemonForms.vue";
-import PokemonStatus from "@/components/Pokemon/PokemonStatusList.vue";
+import ApiPokemon from "@/core/ApiPokemon.ts"
+import PokemonEvolutions from "@/components/Pokemon/PokemonEvolutions.vue"
+import PokemonForms from "@/components/Pokemon/PokemonForms.vue"
+import PokemonStatus from "@/components/Pokemon/PokemonStatusList.vue"
 //import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
-import { reactive, defineComponent, onMounted, watch } from "vue";
+import { reactive, defineComponent, onMounted, watch } from "vue"
 
 export default defineComponent({
   name: "pokemon-perfil",
   components: {
     PokemonEvolutions,
     PokemonForms,
-    PokemonStatus
+    PokemonStatus,
   },
   props: {
-    pokeresposta: Object
+    pokeresposta: Object,
   },
   setup(props) {
     interface Pokemon {
-      fotourl: string;
-      tipo: Array<string>;
-      carregado: boolean;
+      fotourl: string
+      tipo: Array<string>
+      carregado: boolean
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      especie: any;
+      especie: any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      evolucao: any;
-      evolucoes: Array<string>;
-      evolucoesURL: Array<string>;
-      descricao: string;
-      alcunha: string;
-      formas: Array<string>;
+      evolucao: any
+      evolucoes: Array<string>
+      evolucoesURL: Array<string>
+      descricao: string
+      alcunha: string
+      formas: Array<string>
     }
     const state = reactive({
       tipo: [],
@@ -154,174 +154,174 @@ export default defineComponent({
       descricao: "",
       alcunha: "",
       formas: [],
-      carregado: false
-    }) as Pokemon;
+      carregado: false,
+    }) as Pokemon
 
     function setaImg() {
       if (props.pokeresposta !== undefined) {
         const numero =
           props.pokeresposta.id < 999
             ? ("000" + props.pokeresposta.id).substr(-3)
-            : props.pokeresposta.id;
-        state.tipo = props.pokeresposta.types;
+            : props.pokeresposta.id
+        state.tipo = props.pokeresposta.types
         if (numero < 1000) {
-          state.fotourl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${numero}.png`;
+          state.fotourl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${numero}.png`
         } else if (props.pokeresposta.name.includes("alola")) {
           //console.log(props.pokeresposta.species.url);
           let numeroPoke = props.pokeresposta.species.url.replace(
             "https://pokeapi.co/api/v2/pokemon-species/",
             ""
-          );
-          numeroPoke = numeroPoke.replace("/", "");
-          state.fotourl = `https://serebii.net/art/th/${numeroPoke}-a.png`;
+          )
+          numeroPoke = numeroPoke.replace("/", "")
+          state.fotourl = `https://serebii.net/art/th/${numeroPoke}-a.png`
         } else {
-          state.fotourl = "https://toyama.com.br/images/imagens.png";
+          state.fotourl = "https://toyama.com.br/images/imagens.png"
         }
         //https://serebii.net/art/th/105-a.png
         //https://serebii.net/pokemon/art/52-g.png
-        state.carregado = true;
+        state.carregado = true
       } else {
-        console.error(" props undefined");
+        console.error(" props undefined")
       }
     }
     function reset() {
-      state.tipo = [];
-      state.fotourl = "";
-      state.especie = [];
-      state.evolucao = [];
-      state.evolucoes = [];
-      state.evolucoesURL = [];
-      state.descricao = "";
-      state.alcunha = "";
-      state.formas = [];
-      state.carregado = false;
+      state.tipo = []
+      state.fotourl = ""
+      state.especie = []
+      state.evolucao = []
+      state.evolucoes = []
+      state.evolucoesURL = []
+      state.descricao = ""
+      state.alcunha = ""
+      state.formas = []
+      state.carregado = false
     }
     function setaEvolucao() {
       if (state.evolucao) {
         try {
           state.evolucoes = [
             ...state.evolucoes,
-            state.evolucao.chain.species.name
-          ];
+            state.evolucao.chain.species.name,
+          ]
           state.evolucoesURL = [
             ...state.evolucoesURL,
-            state.evolucao.chain.species.url
-          ];
+            state.evolucao.chain.species.url,
+          ]
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           state.evolucao.chain.evolves_to.map((ev: any, index: number) => {
-            state.evolucoes = [...state.evolucoes, ev.species.name];
-            state.evolucoesURL = [...state.evolucoesURL, ev.species.url];
+            state.evolucoes = [...state.evolucoes, ev.species.name]
+            state.evolucoesURL = [...state.evolucoesURL, ev.species.url]
 
             if (ev.evolves_to.length > 0) {
               state.evolucoes = [
                 ...state.evolucoes,
-                ev.evolves_to[index].species.name
-              ];
+                ev.evolves_to[index].species.name,
+              ]
               state.evolucoesURL = [
                 ...state.evolucoesURL,
-                ev.evolves_to[index].species.url
-              ];
+                ev.evolves_to[index].species.url,
+              ]
             }
-          });
+          })
         } catch (err) {
-          state.evolucoes = [];
+          state.evolucoes = []
         }
       }
     }
 
     async function buscaEvolucao(id: string) {
-      const request = new ApiPokemon();
+      const request = new ApiPokemon()
       await request
         .getEspecie(id, "evolution-chain")
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((response: any) => {
-          state.evolucao = response;
+          state.evolucao = response
         })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .catch((err: any) => {
-          state.evolucao = [{ erro: err }];
-        });
+          state.evolucao = [{ erro: err }]
+        })
     }
 
     async function BuscaEspecie() {
-      const request = new ApiPokemon();
+      const request = new ApiPokemon()
       if (props.pokeresposta !== undefined) {
         let idspecie = props.pokeresposta.species.url.replace(
           "https://pokeapi.co/api/v2/pokemon-species/",
           ""
-        );
-        idspecie = idspecie.replace("/", "");
+        )
+        idspecie = idspecie.replace("/", "")
         await request
           .getEspecie(idspecie, "pokemon-species")
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .then((response: any) => {
-            state.especie = response;
+            state.especie = response
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             response.genera.map((alc: any) => {
               if (alc.language.name === "en") {
                 //if (state.alcunha === "") {
-                state.alcunha = alc.genus;
+                state.alcunha = alc.genus
                 //}
               }
-            });
+            })
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             response.flavor_text_entries.map((desc: any) => {
               if (desc.language.name === "en") {
                 if (state.descricao === "") {
-                  state.descricao = state.descricao + desc.flavor_text;
+                  state.descricao = state.descricao + desc.flavor_text
                 }
               }
-            });
+            })
 
             //console.log(response.evolution_chain.url)
             if (response.evolution_chain.url) {
               let idChain: string = response.evolution_chain.url.replace(
                 "https://pokeapi.co/api/v2/evolution-chain/",
                 ""
-              );
-              idChain = idChain.replace("/", "");
-              buscaEvolucao(idChain);
+              )
+              idChain = idChain.replace("/", "")
+              buscaEvolucao(idChain)
             }
-            state.carregado = true;
+            state.carregado = true
           })
           .catch(err => {
-            console.log(err);
-          });
+            console.log(err)
+          })
       } else {
-        console.error(" props undefined");
+        console.error(" props undefined")
       }
     }
 
     function variedadevalido() {
       if (typeof state.especie.varieties === "undefined") {
-        return false;
+        return false
       } else if (state.especie.varieties.length === 1) {
-        return false;
+        return false
       } else {
-        return true;
+        return true
       }
     }
     watch(
       () => props.pokeresposta,
       async () => {
-        reset();
-        setaImg();
-        BuscaEspecie();
+        reset()
+        setaImg()
+        BuscaEspecie()
       }
-    );
+    )
     watch(
       () => state.evolucao,
       async () => {
-        setaEvolucao();
+        setaEvolucao()
       }
-    );
+    )
     onMounted(() => {
       // ...
 
-      setaImg();
-      BuscaEspecie();
-    });
+      setaImg()
+      BuscaEspecie()
+    })
     return {
       state,
       setaImg,
@@ -329,8 +329,8 @@ export default defineComponent({
       BuscaEspecie,
       reset,
       setaEvolucao,
-      variedadevalido
-    };
-  }
-});
+      variedadevalido,
+    }
+  },
+})
 </script>

@@ -15,35 +15,35 @@
   </div>
 </template>
 <script lang="ts">
-import { reactive, defineComponent, computed } from "vue";
-import PokemonMoveDescription from "@/components/Pokemon/PokemonMoveDescription.vue";
-import store from "@/store/store";
+import { reactive, defineComponent, computed } from "vue"
+import PokemonMoveDescription from "@/components/Pokemon/PokemonMoveDescription.vue"
+import store from "@/store/store"
 
 export default defineComponent({
   name: "Moves",
   components: {
-    PokemonMoveDescription
+    PokemonMoveDescription,
   },
   setup() {
     interface Move {
-      moveselecionado: object;
+      moveselecionado: object
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      pokeresposta: any;
+      pokeresposta: any
     }
     const state = reactive({
       moveselecionado: {},
-      pokeresposta: computed(() => store().pokeresposta.value)
-    }) as Move;
+      pokeresposta: computed(() => store().pokeresposta.value),
+    }) as Move
 
     function setaMove(move: object) {
       //console.log(move);
-      state.moveselecionado = move;
+      state.moveselecionado = move
     }
 
     return {
       state,
-      setaMove
-    };
-  }
-});
+      setaMove,
+    }
+  },
+})
 </script>

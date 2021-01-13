@@ -1,0 +1,93 @@
+<template>
+  <div class="div-busca jumbotron">
+    <label for="select-tipo">Select a type </label>
+    <select
+      v-model="state.tiposelecionado"
+      @change="retornaTipo(state.tiposelecionado + 1)"
+      class="select-tipo"
+      id="select-tipo"
+    >
+      <option v-for="(tipo, index) in state.tipos" :key="index" :value="index">
+        {{ tipo.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="msg-box-container container">
+    <h4>{{ state.msg }}</h4>
+    <h1>{{ state.retornoTipo.name }}</h1>
+  </div>
+</template>
+
+<script lang="ts">
+import { reactive, defineComponent, onMounted } from "vue"
+import { useRoute } from "vue-router"
+import ApiPokemon from "@/core/ApiPokemon.ts"
+import { PokeType } from "@/store/interfaces"
+
+export default defineComponent({
+  name: "Types",
+  setup() {
+    const route = useRoute()
+
+    interface Tipos {
+      tipos: Array<PokeType>
+      tiposelecionado: string
+      retornoTipo: PokeType
+      retornou: boolean
+      msg: string
+      carregado: boolean
+    }
+    const state = reactive({
+      tipos: [] as Array<PokeType>,
+      tiposelecionado: "",
+      retornoTipo: {} as PokeType,
+      retornou: false,
+      msg: "Search a type pokemon.",
+      carregado: false,
+    }) as Tipos
+
+    async function retornaTipos() {
+      const request = new ApiPokemon()
+
+      await request
+        .getTypes()
+        .then(response => {
+          state.tipos = response.slice(0, response.length - 2) // remove shadow e unknown
+          state.retornou = true
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+
+    async function retornaTipo(id: string) {
+      const request = new ApiPokemon()
+
+      await request
+        .getType(id, "type")
+        .then(response => {
+          state.retornoTipo = response
+          state.retornou = true
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+
+    onMounted(() => {
+      // ...
+      if (typeof route.params.id !== "undefined") {
+        retornaTipo(route.params.id.toString())
+      }
+      retornaTipos()
+    })
+    return {
+      route,
+      state,
+      retornaTipos,
+      retornaTipo,
+    }
+  },
+})
+</script>
