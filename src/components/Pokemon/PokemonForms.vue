@@ -28,9 +28,9 @@ export default defineComponent({
   props: {
     variedades: {
       type: Array,
-      required: true
+      required: true,
     },
-    color: String
+    color: String,
   },
   setup(props) {
     interface Form {
@@ -41,13 +41,14 @@ export default defineComponent({
     const state = reactive({
       foto: [],
       carregado: false,
-      id: ""
+      id: "",
     }) as Form;
 
     function carregaId1() {
       if (typeof props.variedades !== undefined) {
         // eslint-disable-next-line prettier/prettier
-        const variedades:Array<any> = props.variedades
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const variedades: Array<any> = props.variedades;
         let numeroString = variedades[0].pokemon.url.replace(
           "https://pokeapi.co/api/v2/pokemon/",
           ""
@@ -60,6 +61,7 @@ export default defineComponent({
     function carregaFoto() {
       if (props.variedades !== undefined) {
         let numeropoke = 0;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         props.variedades.map((retorno: any, index: number) => {
           let numeroString = retorno.pokemon.url.replace(
             "https://pokeapi.co/api/v2/pokemon/",
@@ -96,8 +98,8 @@ export default defineComponent({
     );
     return {
       state,
-      carregaFoto
+      carregaFoto,
     };
-  }
+  },
 });
 </script>

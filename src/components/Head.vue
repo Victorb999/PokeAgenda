@@ -29,10 +29,10 @@
               <b>Poke Agenda</b>
             </router-link>
           </li>
-          <!--<li class="nav-item">
-            <router-link to="/tipo"><b>Search for type</b></router-link>
-          </li>
           <li class="nav-item">
+            <router-link to="/type"><b>Search for type</b></router-link>
+          </li>
+          <!--<li class="nav-item">
             <router-link to="/geracao"
               ><b>Search for generation</b></router-link
             >
@@ -44,5 +44,5 @@
 </template>
 
 <script>
-export default {};
+export default {}
 </script>

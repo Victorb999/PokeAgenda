@@ -72,7 +72,7 @@ import { PokeMoves } from "@/store/interfaces";
 export default defineComponent({
   name: "MovesDescription",
   props: {
-    move: Object
+    move: Object,
   },
   setup(props) {
     interface Move {
@@ -85,7 +85,7 @@ export default defineComponent({
       descricao: "",
       shortdescricao: "",
       moveObj: {} as PokeMoves,
-      carregado: false
+      carregado: false,
     }) as Move;
 
     async function BuscaTipo() {
@@ -130,8 +130,8 @@ export default defineComponent({
     );
 
     return {
-      state
+      state,
     };
-  }
+  },
 });
 </script>
