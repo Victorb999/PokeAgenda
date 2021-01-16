@@ -1,5 +1,5 @@
-import axios from "axios"
-import { API_URL } from "./config"
+import axios from "axios";
+import { API_URL } from "./config";
 import {
   Pokedex,
   PokeEspecies,
@@ -7,119 +7,134 @@ import {
   PokeType,
   PokeAbility,
   PokeMoves,
-} from "@/store/interfaces"
+} from "@/store/interfaces";
 
 class ApiPokemon {
-  urlpadrao: string
+  urlpadrao: string;
   constructor() {
-    this.urlpadrao = API_URL
+    this.urlpadrao = API_URL;
   }
 
   //busca o champ pelo id
   async getPokemon(id: string, url: string) {
-    let pokeresposta = {} as Pokedex
+    let pokeresposta = {} as Pokedex;
     await axios({
       method: "get",
       url: `${this.urlpadrao}/${url}/${id}`,
     })
       .then(response => {
-        pokeresposta = response.data
+        pokeresposta = response.data;
       })
       .catch(() => {
-        return false
-      })
-    return pokeresposta
+        return false;
+      });
+    return pokeresposta;
   }
 
   async getEspecie(id: string, url: string) {
-    let pokeresposta = {} as PokeEspecies
+    let pokeresposta = {} as PokeEspecies;
     await axios({
       method: "get",
       url: `${this.urlpadrao}/${url}/${id}`,
     })
       .then(response => {
-        pokeresposta = response.data
+        pokeresposta = response.data;
       })
       .catch(() => {
-        return false
-      })
-    return pokeresposta
+        return false;
+      });
+    return pokeresposta;
   }
 
   async getMove(id: string, url: string) {
-    let pokeresposta = {} as PokeMoves
+    let pokeresposta = {} as PokeMoves;
     await axios({
       method: "get",
       url: `${this.urlpadrao}/${url}/${id}`,
     })
       .then(response => {
-        pokeresposta = response.data
+        pokeresposta = response.data;
       })
       .catch(() => {
-        return false
-      })
-    return pokeresposta
+        return false;
+      });
+    return pokeresposta;
   }
 
   async getAbility(id: string, url: string) {
-    let pokeresposta = {} as PokeAbility
+    let pokeresposta = {} as PokeAbility;
     await axios({
       method: "get",
       url: `${this.urlpadrao}/${url}/${id}`,
     })
       .then(response => {
-        pokeresposta = response.data
+        pokeresposta = response.data;
       })
       .catch(() => {
-        return false
-      })
-    return pokeresposta
+        return false;
+      });
+    return pokeresposta;
   }
 
   async getType(id: string, url: string) {
-    let pokeresposta = {} as PokeType
+    let pokeresposta = {} as PokeType;
     await axios({
       method: "get",
       url: `${this.urlpadrao}/${url}/${id}`,
     })
       .then(response => {
-        pokeresposta = response.data
+        pokeresposta = response.data;
       })
       .catch(() => {
-        return false
-      })
-    return pokeresposta
+        return false;
+      });
+    return pokeresposta;
   }
 
   async getTypes() {
-    let pokeresposta = [] as Array<PokeType>
+    let pokeresposta = [] as Array<PokeType>;
     await axios({
       method: "get",
       url: `${this.urlpadrao}/type`,
     })
       .then(response => {
-        pokeresposta = response.data.results
+        pokeresposta = response.data.results;
       })
       .catch(() => {
-        return false
-      })
-    return pokeresposta
+        return false;
+      });
+    return pokeresposta;
   }
 
   async getGeneration(id: string, url: string) {
-    let pokeresposta = {} as PokeGeneration
+    let pokeresposta = {} as PokeGeneration;
     await axios({
       method: "get",
       url: `${this.urlpadrao}/${url}/${id}`,
     })
       .then(response => {
-        pokeresposta = response.data
+        pokeresposta = response.data;
       })
       .catch(() => {
-        return false
+        return false;
+      });
+    return pokeresposta;
+  }
+
+  async getGenerations() {
+    let pokeresposta = [] as Array<PokeGeneration>;
+    await axios({
+      method: "get",
+      url: `${this.urlpadrao}/generation`,
+    })
+      .then(response => {
+        pokeresposta = response.data.results;
       })
-    return pokeresposta
+      .catch(() => {
+        return false;
+      });
+    return pokeresposta;
   }
 }
 
-export default ApiPokemon
+export default ApiPokemon;

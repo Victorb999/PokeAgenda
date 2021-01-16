@@ -25,8 +25,8 @@ const state = reactive({
     dark: "#303030",
     fairy: "#fdb9e9",
     unknown: "#000",
-    shadow: "#333"
-  }
+    shadow: "#333",
+  },
 }) as Pokemon;
 export default function createStore() {
   function setPokeresposta(x: Pokedex) {

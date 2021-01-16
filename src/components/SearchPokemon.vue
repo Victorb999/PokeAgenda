@@ -42,7 +42,7 @@ export default defineComponent({
       pokemon: string;
     }
     const state = reactive({
-      pokemon: ""
+      pokemon: "",
     }) as Pokemon;
 
     function BuscaRandom() {
@@ -60,8 +60,8 @@ export default defineComponent({
     return {
       state,
       BuscaRandom,
-      BuscaPokemon
+      BuscaPokemon,
     };
-  }
+  },
 });
 </script>

@@ -32,11 +32,11 @@
           <li class="nav-item">
             <router-link to="/type"><b>Search for type</b></router-link>
           </li>
-          <!--<li class="nav-item">
-            <router-link to="/geracao"
+          <li class="nav-item">
+            <router-link to="/generation"
               ><b>Search for generation</b></router-link
             >
-          </li>-->
+          </li>
         </ul>
       </div>
     </nav>
@@ -44,5 +44,5 @@
 </template>
 
 <script>
-export default {}
+export default {};
 </script>

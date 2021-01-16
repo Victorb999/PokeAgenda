@@ -29,7 +29,7 @@ export default defineComponent({
   props: {
     evolucoes: Array,
     evolucoesUrl: Array,
-    color: String
+    color: String,
   },
   setup(props) {
     interface Evolution {
@@ -38,12 +38,13 @@ export default defineComponent({
     }
     const state = reactive({
       foto: [],
-      carregado: false
+      carregado: false,
     }) as Evolution;
 
     function carregaFoto() {
       if (props.evolucoesUrl !== undefined) {
         let numeropoke = 0;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         props.evolucoesUrl.map((retorno: any, index: number) => {
           let numeroString = retorno.replace(
             "https://pokeapi.co/api/v2/pokemon-species/",
@@ -74,7 +75,7 @@ export default defineComponent({
     );
     return {
       state,
-      carregaFoto
+      carregaFoto,
     };
   },
 });

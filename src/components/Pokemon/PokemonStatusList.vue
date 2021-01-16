@@ -31,7 +31,7 @@
 export default {
   props: {
     pokeresposta: Array,
-    color: Array
-  }
+    color: Array,
+  },
 };
 </script>

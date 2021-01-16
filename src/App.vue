@@ -12,8 +12,8 @@ import Head from "@/components/Head.vue";
 export default defineComponent({
   name: "Home",
   components: {
-    Head
-  }
+    Head,
+  },
 });
 </script>
 

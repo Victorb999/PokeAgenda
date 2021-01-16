@@ -40,7 +40,7 @@ export default defineComponent({
     const state = reactive({
       habilidadeApi: [],
       retornoHabilidade: [],
-      pokeresposta: computed(() => store().pokeresposta.value)
+      pokeresposta: computed(() => store().pokeresposta.value),
     }) as Ability;
 
     async function carregaHabilidade(url: string) {
@@ -103,8 +103,8 @@ export default defineComponent({
       }
     );
     return {
-      state
+      state,
     };
-  }
+  },
 });
 </script>

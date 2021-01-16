@@ -13,8 +13,8 @@ import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to 
 export default defineComponent({
   name: "Home",
   components: {
-    SearchPokemon
-  }
+    SearchPokemon,
+  },
 });
 </script>
 
