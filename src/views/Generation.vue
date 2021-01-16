@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent, onMounted } from "vue";
+import { reactive, defineComponent, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import ApiPokemon from "@/core/ApiPokemon.ts";
 import { PokeGeneration } from "@/store/interfaces";
@@ -71,7 +71,7 @@ export default defineComponent({
       await request
         .getGenerations()
         .then(response => {
-          state.generation = response.slice(0, response.length - 2); // remove shadow e unknown
+          state.generation = response; // remove shadow e unknown
           state.carregado = true;
         })
         .catch(err => {
@@ -88,6 +88,7 @@ export default defineComponent({
           state.retornoGeneration = response;
           state.msg = "";
           state.retornou = true;
+          state.carregado = true;
         })
         .catch(err => {
           console.log(err);
@@ -97,10 +98,31 @@ export default defineComponent({
     onMounted(() => {
       // ...
       if (typeof route.params.id !== "undefined") {
+        state.generationSelected = route.params.id.toString();
         retornaGeneration(route.params.id.toString());
       }
       retornaGenerations();
     });
+
+    watch(
+      () => state.generationSelected,
+      () => {
+        state.carregado = false;
+        state.retornoGeneration = {} as PokeGeneration;
+        state.retornou = false;
+        state.msg = "Search for a generation.";
+        retornaGeneration(state.generationSelected + 1);
+      }
+    );
+    watch(
+      () => route.params,
+      async () => {
+        state.carregado = false;
+        state.generationSelected = route.params.id.toString();
+        retornaGeneration(route.params.id.toString());
+      }
+    );
+
     return {
       route,
       state,

@@ -25,12 +25,16 @@
     </div>
   </div>
   <div v-else class="loading">
-    LoAD
+    <img
+      :src="require('@/assets/gifs/pikachu-loading.gif')"
+      alt="Loading"
+      class="pokeloading"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent, onMounted } from "vue";
+import { reactive, defineComponent, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import ApiPokemon from "@/core/ApiPokemon.ts";
 import { PokeType } from "@/store/interfaces";
@@ -84,6 +88,7 @@ export default defineComponent({
           state.retornoTipo = response;
           state.msg = "";
           state.retornou = true;
+          state.carregado = true;
         })
         .catch(err => {
           console.log(err);
@@ -93,10 +98,30 @@ export default defineComponent({
     onMounted(() => {
       // ...
       if (typeof route.params.id !== "undefined") {
+        state.tiposelecionado = route.params.id.toString();
         retornaTipo(route.params.id.toString());
       }
       retornaTipos();
     });
+
+    watch(
+      () => state.tiposelecionado,
+      () => {
+        state.carregado = false;
+        state.retornoTipo = {} as PokeType;
+        state.retornou = false;
+        state.msg = "Search for a generation.";
+        retornaTipo(state.tiposelecionado + 1);
+      }
+    );
+    watch(
+      () => route.params,
+      async () => {
+        state.carregado = false;
+        state.tiposelecionado = route.params.id.toString();
+        retornaTipo(route.params.id.toString());
+      }
+    );
     return {
       route,
       state,
