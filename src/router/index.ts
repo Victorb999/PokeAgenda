@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/type/:id",
-    name: "pokemon type",
+    name: "PokemonType",
     component: () => import("@/views/Type.vue"),
   },
   {
@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/generation/:id",
-    name: "pokemon Generation",
+    name: "PokemonGeneration",
     component: () => import("@/views/Generation.vue"),
   },
 ];

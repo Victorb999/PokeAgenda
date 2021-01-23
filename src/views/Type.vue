@@ -3,16 +3,19 @@
     <label for="select-tipo">Select a type: </label>
     <select
       v-model="state.tiposelecionado"
-      @change="retornaTipo(state.tiposelecionado + 1)"
+      @change="setaType(state.tiposelecionado)"
       class="select-tipo"
       id="select-tipo"
     >
-      <option v-for="(tipo, index) in state.tipos" :key="index" :value="index">
+      <option
+        v-for="(tipo, index) in state.tipos"
+        :key="index + 1"
+        :value="index + 1"
+      >
         {{ tipo.name }}
       </option>
     </select>
   </div>
-
   <div class="msg-box-container container">
     <h4>{{ state.msg }}</h4>
     <h1>{{ state.retornoTipo.name }}</h1>
@@ -28,7 +31,7 @@
     <img
       :src="require('@/assets/gifs/pikachu-loading.gif')"
       alt="Loading"
-      class="pokeloading"
+      class="mt-10"
     />
   </div>
 </template>
@@ -41,6 +44,7 @@ import { PokeType } from "@/store/interfaces";
 import TypeRelation from "@/components/Type/TypeRelation.vue";
 import TypeMoves from "@/components/Type/TypeMoves.vue";
 import TypePokemons from "@/components/Type/TypePokemons.vue";
+import router from "@/router";
 
 export default defineComponent({
   components: { TypeRelation, TypeMoves, TypePokemons },
@@ -95,31 +99,49 @@ export default defineComponent({
         });
     }
 
+    function setaType(id: string) {
+      router.push({ name: "PokemonType", params: { id: id } });
+    }
+
+    function reset() {
+      state.tipos = [] as Array<PokeType>;
+      state.tiposelecionado = "";
+      state.retornoTipo = {} as PokeType;
+      state.retornou = false;
+      state.msg = "Search a type pokemon.";
+      state.carregado = false;
+    }
     onMounted(() => {
       // ...
       if (typeof route.params.id !== "undefined") {
+        reset();
         state.tiposelecionado = route.params.id.toString();
         retornaTipo(route.params.id.toString());
+      } else {
+        reset();
       }
       retornaTipos();
     });
 
-    watch(
-      () => state.tiposelecionado,
-      () => {
-        state.carregado = false;
-        state.retornoTipo = {} as PokeType;
-        state.retornou = false;
-        state.msg = "Search for a generation.";
-        retornaTipo(state.tiposelecionado + 1);
-      }
-    );
+    // watch(
+    //   () => state.tiposelecionado,
+    //   () => {
+    //     reset();
+    //     retornaTipo(state.tiposelecionado);
+    //   }
+    // );
     watch(
       () => route.params,
       async () => {
         state.carregado = false;
-        state.tiposelecionado = route.params.id.toString();
-        retornaTipo(route.params.id.toString());
+        if (typeof route.params.id !== "undefined") {
+          reset();
+          state.tiposelecionado = route.params.id.toString();
+          retornaTipo(route.params.id.toString());
+        } else {
+          reset();
+        }
+        retornaTipos();
       }
     );
     return {
@@ -127,6 +149,8 @@ export default defineComponent({
       state,
       retornaTipos,
       retornaTipo,
+      setaType,
+      reset,
     };
   },
 });

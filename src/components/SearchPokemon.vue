@@ -12,17 +12,17 @@
         <div class="search-buttons">
           <button
             type="submit"
-            class="btn btn-primary branco"
+            class="btn branco water"
             @click="BuscaPokemon()"
           >
-            Buscar
+            Search
           </button>
-          <button type="reset" class="btn btn-danger">Reset</button>
+
           <button
             title="Search for a random pokemon"
             placement="bottom"
             type="button"
-            class="btn branco btn-warning"
+            class="btn branco fire"
             @click="BuscaRandom()"
           >
             Random

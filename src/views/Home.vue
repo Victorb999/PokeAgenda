@@ -1,8 +1,13 @@
 <template>
   <div class="home">
     <search-pokemon />
-    <img alt="Vue logo" src="../assets/gifs/pikachu-loading.gif" />
-    <h1>Rebuilding with TS + vue3</h1>
+    <div class="card card-about">
+      <div class="card-body">
+        <img alt="Pikachu" src="../assets/gifs/pikachu-loading.gif" />
+        <h1>This is a Pokedex</h1>
+        <p>Made with vue3 and TS</p>
+      </div>
+    </div>
   </div>
 </template>
 

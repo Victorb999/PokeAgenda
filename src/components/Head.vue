@@ -24,15 +24,15 @@
 
       <div class="collapse navbar-collapse" id="navbar-toggle-collapse">
         <ul class="navbar-nav header">
-          <li class="nav-item">
+          <li class="nav-item ml-4">
             <router-link to="/" class="logo">
               <b>Poke Agenda</b>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ml-4">
             <router-link to="/type"><b>Search for type</b></router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ml-4">
             <router-link to="/generation"
               ><b>Search for generation</b></router-link
             >

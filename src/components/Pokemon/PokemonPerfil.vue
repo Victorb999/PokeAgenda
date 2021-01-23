@@ -50,7 +50,7 @@
                   :key="index"
                   class="texto-tipo"
                 >
-                  <router-link :to="`/tipo/${state.tipo[index].type.name}`">
+                  <router-link :to="`/type/${state.tipo[index].type.name}`">
                     <span class="badge" :class="state.tipo[index].type.name"
                       >{{ state.tipo[index].type.name }}
                     </span>

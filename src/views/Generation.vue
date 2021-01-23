@@ -3,14 +3,14 @@
     <label for="select-tipo">Select a generation: </label>
     <select
       v-model="state.generationSelected"
-      @change="retornaGeneration(state.generationSelected + 1)"
+      @change="setaGeneration(state.generationSelected)"
       class="select-tipo"
       id="select-tipo"
     >
       <option
         v-for="(gen, index) in state.generation"
-        :key="index"
-        :value="index"
+        :key="index + 1"
+        :value="index + 1"
       >
         {{ gen.name }}
       </option>
@@ -30,7 +30,7 @@
     <img
       :src="require('@/assets/gifs/pikachu-loading.gif')"
       alt="Loading"
-      class="pokeloading"
+      class="m-10"
     />
   </div>
 </template>
@@ -41,6 +41,7 @@ import { useRoute } from "vue-router";
 import ApiPokemon from "@/core/ApiPokemon.ts";
 import { PokeGeneration } from "@/store/interfaces";
 import GenerationPokemons from "@/components/Generation/GenerationPokemons.vue";
+import router from "@/router";
 
 export default defineComponent({
   components: { GenerationPokemons },
@@ -95,31 +96,53 @@ export default defineComponent({
         });
     }
 
+    function reset() {
+      state.generation = [] as Array<PokeGeneration>;
+      state.generationSelected = "";
+      state.retornoGeneration = {} as PokeGeneration;
+      state.retornou = false;
+      state.msg = "Search a generation.";
+      state.carregado = false;
+    }
+
+    function setaGeneration(id: string) {
+      router.push({ name: "PokemonGeneration", params: { id: id } });
+    }
+
     onMounted(() => {
       // ...
       if (typeof route.params.id !== "undefined") {
+        reset();
         state.generationSelected = route.params.id.toString();
         retornaGeneration(route.params.id.toString());
+      } else {
+        reset();
       }
       retornaGenerations();
     });
 
-    watch(
-      () => state.generationSelected,
-      () => {
-        state.carregado = false;
-        state.retornoGeneration = {} as PokeGeneration;
-        state.retornou = false;
-        state.msg = "Search for a generation.";
-        retornaGeneration(state.generationSelected + 1);
-      }
-    );
+    // watch(
+    //   () => state.generationSelected,
+    //   () => {
+    //     state.carregado = false;
+    //     state.retornoGeneration = {} as PokeGeneration;
+    //     state.retornou = false;
+    //     state.msg = "Search for a generation.";
+    //     retornaGeneration(state.generationSelected + 1);
+    //   }
+    // );
     watch(
       () => route.params,
       async () => {
         state.carregado = false;
-        state.generationSelected = route.params.id.toString();
-        retornaGeneration(route.params.id.toString());
+        if (typeof route.params.id !== "undefined") {
+          reset();
+          state.generationSelected = route.params.id.toString();
+          retornaGeneration(route.params.id.toString());
+        } else {
+          reset();
+        }
+        retornaGenerations();
       }
     );
 
@@ -128,6 +151,8 @@ export default defineComponent({
       state,
       retornaGeneration,
       retornaGenerations,
+      setaGeneration,
+      reset,
     };
   },
 });

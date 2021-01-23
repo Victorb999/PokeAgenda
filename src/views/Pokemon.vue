@@ -72,8 +72,10 @@ export default defineComponent({
     watch(
       () => route.params,
       async params => {
-        state.pokemon = params.id.toString();
-        BuscaPokemon();
+        if (typeof route.params.id !== "undefined") {
+          state.pokemon = params.id.toString();
+          BuscaPokemon();
+        }
       }
     );
     onMounted(() => {
