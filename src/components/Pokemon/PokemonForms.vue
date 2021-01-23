@@ -70,17 +70,18 @@ export default defineComponent({
           numeroString = numeroString.replace("/", "");
           numeropoke = Number(numeroString);
           carregaId1();
-          let sufix = "";
+          let sufix = [];
           if (retorno.pokemon.name.includes("-")) {
             sufix = retorno.pokemon.name.split("-");
           }
           let nome = state.id.toString();
           // if (numeropoke < 10090) {
-          if (sufix != "") {
-            nome += "-" + sufix[1];
+          if (sufix.length > 0) {
+            sufix.map((a: string) => {
+              nome += "-" + a;
+            });
+            nome = nome.replace(sufix[0] + "-", "");
           }
-          console.log(nome);
-
           if (nome == "") {
             state.foto[
               index
@@ -107,7 +108,16 @@ export default defineComponent({
           //     index
           //   ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${state.id}-gmax.png`;
           // }
-          else {
+          else if (
+            nome.includes("hero") ||
+            nome.includes("crowned") ||
+            nome.includes("eternamax") ||
+            nome.includes("totem") ||
+            nome.includes("plant") ||
+            nome.includes("strike")
+          ) {
+            state.foto[index] = "https://toyama.com.br/images/imagens.png";
+          } else {
             state.foto[
               index
             ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${nome}.png`;
