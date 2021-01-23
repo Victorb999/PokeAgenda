@@ -159,21 +159,13 @@ export default defineComponent({
 
     function setaImg() {
       if (props.pokeresposta !== undefined) {
-        const numero =
-          props.pokeresposta.id < 999
-            ? ("000" + props.pokeresposta.id).substr(-3)
-            : props.pokeresposta.id;
         state.tipo = props.pokeresposta.types;
-        if (numero < 1000) {
-          state.fotourl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${numero}.png`;
-        } else if (props.pokeresposta.name.includes("alola")) {
-          //console.log(props.pokeresposta.species.url);
-          let numeroPoke = props.pokeresposta.species.url.replace(
-            "https://pokeapi.co/api/v2/pokemon-species/",
-            ""
-          );
-          numeroPoke = numeroPoke.replace("/", "");
-          state.fotourl = `https://serebii.net/art/th/${numeroPoke}-a.png`;
+        if (
+          props.pokeresposta.sprites.other["official-artwork"].front_default !==
+          null
+        ) {
+          state.fotourl =
+            props.pokeresposta.sprites.other["official-artwork"].front_default;
         } else {
           state.fotourl = "https://toyama.com.br/images/imagens.png";
         }
@@ -306,8 +298,8 @@ export default defineComponent({
       () => props.pokeresposta,
       async () => {
         reset();
-        setaImg();
         BuscaEspecie();
+        setaImg();
       }
     );
     watch(

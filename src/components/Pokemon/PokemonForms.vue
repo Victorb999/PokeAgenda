@@ -69,17 +69,49 @@ export default defineComponent({
           );
           numeroString = numeroString.replace("/", "");
           numeropoke = Number(numeroString);
-          if (numeropoke < 10090) {
+          carregaId1();
+          let sufix = "";
+          if (retorno.pokemon.name.includes("-")) {
+            sufix = retorno.pokemon.name.split("-");
+          }
+          let nome = state.id.toString();
+          // if (numeropoke < 10090) {
+          if (sufix != "") {
+            nome += "-" + sufix[1];
+          }
+          console.log(nome);
+
+          if (nome == "") {
             state.foto[
               index
             ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numeropoke}.png`;
-          } else if (retorno.pokemon.name.includes("alola")) {
+          }
+          // else if (retorno.pokemon.name.includes("alola")) {
+          //   carregaId1();
+          //   state.foto[
+          //     index
+          //   ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${state.id}-alola.png`;
+          else if (nome.includes("galar")) {
             carregaId1();
+            const numero =
+              parseInt(state.id) < 999
+                ? ("000" + state.id).substr(-3)
+                : state.id;
             state.foto[
               index
-            ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${state.id}-alola.png`;
-          } else {
-            state.foto[index] = "https://toyama.com.br/images/imagens.png";
+            ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numero}-galar.png`;
+          }
+          //else if (retorno.pokemon.name.includes("gmax")) {
+          //   carregaId1();
+          //   state.foto[
+          //     index
+          //   ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${state.id}-gmax.png`;
+          // }
+          else {
+            state.foto[
+              index
+            ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${nome}.png`;
+            //state.foto[index] = "https://toyama.com.br/images/imagens.png";
           }
           state.carregado = true;
         });
