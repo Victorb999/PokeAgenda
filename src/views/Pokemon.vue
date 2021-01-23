@@ -11,6 +11,15 @@
       <PokemonMoves />
     </div>
   </div>
+  <div v-else-if="state.error" class="poke-error">
+    <h3>We couldn't find this Pokemon =(</h3>
+    <p>Try to search another.</p>
+    <img
+      :src="require('@/assets/gifs/gastly-loading.gif')"
+      alt="Loading"
+      class="m-10"
+    />
+  </div>
   <div v-else class="loading">
     <img
       :src="require('@/assets/gifs/pikachu-loading.gif')"
@@ -49,11 +58,13 @@ export default defineComponent({
       pokemon: string;
       pokeresposta: Pokedex;
       apiOk: boolean;
+      error: boolean;
     }
     const state = reactive({
       pokemon: route.params.id,
       pokeresposta: computed(() => store().pokeresposta.value),
       apiOk: false,
+      error: false,
     }) as Pokemon;
 
     async function BuscaPokemon() {
@@ -62,11 +73,16 @@ export default defineComponent({
       await request
         .getPokemon(state.pokemon, "pokemon")
         .then(response => {
-          store().setPokeresposta(response);
-          state.apiOk = true;
+          if (Object.keys(response).length === 0) {
+            state.apiOk = false;
+            state.error = true;
+          } else {
+            store().setPokeresposta(response);
+            state.apiOk = true;
+          }
         })
-        .catch(err => {
-          console.log(err);
+        .catch(() => {
+          state.error = true;
         });
     }
     watch(

@@ -27,6 +27,15 @@
       <type-pokemons :retornoTipo="state.retornoTipo" />
     </div>
   </div>
+  <div v-else-if="state.error" class="poke-error">
+    <h3>We couldn't find this type =(</h3>
+    <p>Try to search another.</p>
+    <img
+      :src="require('@/assets/gifs/gastly-loading.gif')"
+      alt="Loading"
+      class="m-10"
+    />
+  </div>
   <div v-else class="loading">
     <img
       :src="require('@/assets/gifs/pikachu-loading.gif')"
@@ -59,6 +68,7 @@ export default defineComponent({
       retornou: boolean;
       msg: string;
       carregado: boolean;
+      error: boolean;
     }
     const state = reactive({
       tipos: [] as Array<PokeType>,
@@ -67,6 +77,7 @@ export default defineComponent({
       retornou: false,
       msg: "Search a type pokemon.",
       carregado: false,
+      error: false,
     }) as Tipos;
 
     async function retornaTipos() {
@@ -76,7 +87,6 @@ export default defineComponent({
         .getTypes()
         .then(response => {
           state.tipos = response.slice(0, response.length - 2); // remove shadow e unknown
-          state.carregado = true;
         })
         .catch(err => {
           console.log(err);
@@ -89,13 +99,23 @@ export default defineComponent({
       await request
         .getType(id, "type")
         .then(response => {
-          state.retornoTipo = response;
-          state.msg = "";
-          state.retornou = true;
-          state.carregado = true;
+          if (Object.keys(response).length == 0) {
+            state.carregado = false;
+            state.msg = "";
+            state.retornou = false;
+            state.error = true;
+          } else {
+            state.retornoTipo = response;
+            state.msg = "";
+            state.retornou = true;
+            state.carregado = true;
+          }
         })
-        .catch(err => {
-          console.log(err);
+        .catch(() => {
+          state.carregado = false;
+          state.msg = "";
+          state.retornou = false;
+          state.error = true;
         });
     }
 
