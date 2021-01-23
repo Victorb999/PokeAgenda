@@ -3,29 +3,32 @@
     <h1>Base status</h1>
 
     <div class="lista-atributos">
-      
-        <div v-for="(status, index) in pokeresposta" :key="index" class="col-md-2">
-          <span
-            class="badge-status badge badge-status badge-secondary"
+      <div
+        v-for="(status, index) in pokeresposta"
+        :key="index"
+        class="col-md-2"
+      >
+        <span
+          class="badge-status badge badge-status badge-secondary"
+          :class="color[0].type.name"
+          >{{ status.stat.name }}</span
+        >
+        <div class="progress">
+          <div
+            class="progress-bar"
             :class="color[0].type.name"
-            >{{ status.stat.name }}</span
+            role="progressbar"
+            :style="`width: ${status.base_stat / 2}%;`"
+            :aria-valuenow="status.base_stat"
+            aria-valuemin="0"
+            aria-valuemax="200"
           >
-          <div class="progress">
-            <div
-              class="progress-bar"
-              :class="color[0].type.name"
-              role="progressbar"
-              :style="`width: ${status.base_stat / 2}%;`"
-              :aria-valuenow="status.base_stat"
-              aria-valuemin="0"
-              aria-valuemax="200"
-            >
             {{ status.base_stat }}
-            </div>
           </div>
-          <!-- <b-collapse v-if="(index+1)%3 === 0"></b-collapse>           -->
         </div>
-      
+        <!-- <b-collapse v-if="(index+1)%3 === 0"></b-collapse>           -->
+      </div>
+
       <!--<div class="grafico">
         <div id="chart">
           <apexchart
@@ -46,7 +49,7 @@ import store from "@/store/store";
 export default {
   props: {
     pokeresposta: Array,
-    color: Array
+    color: Array,
   },
   // components: {
   //   apexchart
@@ -56,8 +59,8 @@ export default {
       series: [
         {
           name: "Stats",
-          data: []
-        }
+          data: [],
+        },
       ],
       chartOptions: {
         chart: {
@@ -69,13 +72,13 @@ export default {
             speed: 800,
             animateGradually: {
               enabled: true,
-              delay: 150
+              delay: 150,
             },
             dynamicAnimation: {
               enabled: true,
-              speed: 350
-            }
-          }
+              speed: 350,
+            },
+          },
         },
         responsive: [
           {
@@ -83,14 +86,14 @@ export default {
             options: {
               plotOptions: {
                 radar: {
-                  size: 70
+                  size: 70,
                 },
               },
             },
           },
         ],
         title: {
-          text: ""
+          text: "",
         },
         xaxis: {
           categories: [],
@@ -103,7 +106,7 @@ export default {
               fontSize: "13px",
               fontFamily: "Oswald, Helvetica, Arial, sans-serif",
               fontWeight: 800,
-              cssClass: "apexcharts-xaxis-label"
+              cssClass: "apexcharts-xaxis-label",
             },
           },
         },
@@ -114,12 +117,12 @@ export default {
             show: false,
             style: {
               colors: [],
-              fontSize: "0px"
+              fontSize: "0px",
             },
           },
         },
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         plotOptions: {
           radar: {
@@ -127,19 +130,19 @@ export default {
             polygons: {
               strokeColor: "#e9e9e9",
               fill: {
-                colors: ["#f8f8f8", "#fff"]
-              }
-            }
-          }
+                colors: ["#f8f8f8", "#fff"],
+              },
+            },
+          },
         },
         colors: ["#FF4560"],
         markers: {
           size: 2,
           colors: ["#fff"],
           strokeColor: "#000",
-          strokeWidth: 1
-        }
-      }
+          strokeWidth: 1,
+        },
+      },
     };
   },
   beforeMount() {
@@ -150,8 +153,8 @@ export default {
     pokeresposta: {
       handler() {
         this.montaGrafico();
-      }
-    }
+      },
+    },
   },
   methods: {
     montaGrafico() {
@@ -159,11 +162,11 @@ export default {
         //console.log(resp.stat.name,resp.base_stat)
         this.chartOptions.xaxis.categories = [
           ...this.chartOptions.xaxis.categories,
-          resp.stat.name
+          resp.stat.name,
         ];
         this.chartOptions.xaxis.labels.style.colors = [
           ...this.chartOptions.xaxis.labels.style.colors,
-          "#333333"
+          "#333333",
         ];
         this.series[0].data = [...this.series[0].data, resp.base_stat];
       });

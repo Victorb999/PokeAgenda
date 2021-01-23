@@ -25,26 +25,26 @@ body
     margin-bottom: 0px
     border-radius: 0px
 .div-busca
-    border: 1px solid $cinza-claro
+    border: 1px solid $gray-6
 .div-resultado
-    background: $cinza-clarissimo    
+    background: $gray-4    
 .div-habilidades
-    background: $cinza-claro
+    background: $gray-6
     margin: 0px
     padding: 5px
 .div-attacks
-    background: $cinza-escuro
+    background: $gray-8
     margin: 0px
     padding: 5px
 .header a
     text-align: center
-    color: $cinza-escurao
+    color: $gray-9
 .header a:hover
     text-decoration: none
-    color: $cinza-escuro
+    color: $gray-8
 .header
     display: flex
-    align-items: center;
+    align-items: center
 .logo b    
     margin-left: 5px
 .loading
@@ -76,3 +76,7 @@ a:hover
     margin-right: 10px
 .search-buttons
     display: flex
+
+@media (max-width: $layout-breakpoint-small)
+    .search-input
+         width: 50%
