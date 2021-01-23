@@ -2,11 +2,11 @@
   <div class="status-box-container">
     <h1>Base status</h1>
 
-    <div>
+    <div class="row">
       <div
         v-for="(status, index) in pokeresposta"
         :key="index"
-        class="lista-status"
+        class="lista-status col-sm-6"
       >
         <span>{{ status.stat.name }}</span>
         <div class="progress">
