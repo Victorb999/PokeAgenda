@@ -1,56 +1,48 @@
 <template>
-    <div>
-       
-        <!-- <b-nav class="header">
-            <b-nav-item>
-                 <router-link to="/">
-                    <img src="https://assets.pokemon.com/static2/_ui/img/favicon.ico" alt="pokeagenda">
-                </router-link> 
-            </b-nav-item>
-            <b-nav-item>                              
-                <router-link to="/" class="logo">                
-                <b>Poke Agenda</b>
-                </router-link> 
-            </b-nav-item>           
-            <b-nav-item>               
-                <router-link to="/tipo"><b>Search for type</b></router-link> 
-            </b-nav-item>           
-            <b-nav-item>               
-                <router-link to="/geracao"><b>Search for generation</b></router-link> 
-            </b-nav-item>           
-        </b-nav>         -->
-    <b-navbar navbar-expand>
-    <b-navbar-brand >       
-        <router-link to="/"> 
-            <img src="https://assets.pokemon.com/static2/_ui/img/favicon.ico" alt="pokeagenda">
-        </router-link>             
-    </b-navbar-brand>
+  <div>
+    <nav class="navbar navbar-expand">
+      <div class="navbar-brand">
+        <router-link to="/">
+          <img
+            src="https://assets.pokemon.com/static2/_ui/img/favicon.ico"
+            alt="pokeagenda"
+          />
+        </router-link>
+      </div>
 
-   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle-collapse" aria-controls="navbar-toggle-collapse" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar-toggle-collapse"
+        aria-controls="navbar-toggle-collapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <b-collapse id="navbar-toggle-collapse" is-nav >
-      <b-navbar-nav class="header">            
-            <b-nav-item>                              
-                <router-link to="/" class="logo">                
-                <b>Poke Agenda</b>
-                </router-link> 
-            </b-nav-item>           
-            <b-nav-item>               
-                <router-link to="/tipo"><b>Search for type</b></router-link> 
-            </b-nav-item>           
-            <b-nav-item>               
-                <router-link to="/geracao"><b>Search for generation</b></router-link> 
-            </b-nav-item>           
-      </b-navbar-nav>
-    </b-collapse>
-  </b-navbar>
-    </div>
+      <div class="collapse navbar-collapse" id="navbar-toggle-collapse">
+        <ul class="navbar-nav header">
+          <li class="nav-item ml-4">
+            <router-link to="/" class="logo">
+              <b>Poke Agenda</b>
+            </router-link>
+          </li>
+          <li class="nav-item ml-4">
+            <router-link to="/type"><b>Search for type</b></router-link>
+          </li>
+          <li class="nav-item ml-4">
+            <router-link to="/generation"
+              ><b>Search for generation</b></router-link
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>
