@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import ApiPokemon from "@/core/ApiPokemon.ts";
+import ApiPokemon from "@/core/ApiPokemon";
 import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
 import PokemonPerfil from "@/components/Pokemon/PokemonPerfil.vue";
 import PokemonAbility from "@/components/Pokemon/PokemonAbility.vue";
@@ -72,7 +72,7 @@ export default defineComponent({
 
       await request
         .getPokemon(state.pokemon, "pokemon")
-        .then(response => {
+        .then((response: Pokedex) => {
           if (Object.keys(response).length === 0) {
             state.apiOk = false;
             state.error = true;

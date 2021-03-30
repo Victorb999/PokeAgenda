@@ -7,6 +7,8 @@ import {
   PokeType,
   PokeAbility,
   PokeMoves,
+  PokemonSpecies,
+  EvolutionChain,
 } from "@/store/interfaces";
 
 class ApiPokemon {
@@ -36,6 +38,36 @@ class ApiPokemon {
     await axios({
       method: "get",
       url: `${this.urlpadrao}/${url}/${id}`,
+    })
+      .then(response => {
+        pokeresposta = response.data;
+      })
+      .catch(() => {
+        return false;
+      });
+    return pokeresposta;
+  }
+
+  async getPokemonSpecie(id: string) {
+    let pokeresposta = {} as PokemonSpecies;
+    await axios({
+      method: "get",
+      url: `${this.urlpadrao}/pokemon-species/${id}`,
+    })
+      .then(response => {
+        pokeresposta = response.data;
+      })
+      .catch(() => {
+        return false;
+      });
+    return pokeresposta;
+  }
+
+  async getEvolutionChain(id: string) {
+    let pokeresposta = {} as EvolutionChain;
+    await axios({
+      method: "get",
+      url: `${this.urlpadrao}/evolution-chain/${id}`,
     })
       .then(response => {
         pokeresposta = response.data;

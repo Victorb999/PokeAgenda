@@ -101,24 +101,13 @@
 </template>
 
 <script lang="ts">
-/* TODO:
-Especies
-types
-forms
-skills
-habilities
-graphics
-FIXME:
-paranaue de alola e forms em geral
-*/
-
-import ApiPokemon from "@/core/ApiPokemon.ts";
+import ApiPokemon from "@/core/ApiPokemon";
 import PokemonEvolutions from "@/components/Pokemon/PokemonEvolutions.vue";
 import PokemonForms from "@/components/Pokemon/PokemonForms.vue";
 import PokemonStatus from "@/components/Pokemon/PokemonStatusList.vue";
 //import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
 import { reactive, defineComponent, onMounted, watch } from "vue";
-
+import { PokemonSpecies, EvolutionChain } from "@/store/interfaces";
 export default defineComponent({
   name: "pokemon-perfil",
   components: {
@@ -134,10 +123,8 @@ export default defineComponent({
       fotourl: string;
       tipo: Array<string>;
       carregado: boolean;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      especie: any;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      evolucao: any;
+      especie: PokemonSpecies;
+      evolucao: EvolutionChain;
       evolucoes: Array<string>;
       evolucoesURL: Array<string>;
       descricao: string;
@@ -147,9 +134,9 @@ export default defineComponent({
     const state = reactive({
       tipo: [],
       fotourl: "",
-      especie: [],
-      evolucao: [],
-      evolucoes: [],
+      especie: {} as PokemonSpecies,
+      evolucao: {} as EvolutionChain,
+      evolucoes: [] as Array<string>,
       evolucoesURL: [],
       descricao: "",
       alcunha: "",
@@ -158,6 +145,7 @@ export default defineComponent({
     }) as Pokemon;
 
     function setaImg() {
+      state.fotourl = "";
       if (props.pokeresposta !== undefined) {
         state.tipo = props.pokeresposta.types;
         if (
@@ -179,9 +167,9 @@ export default defineComponent({
     function reset() {
       state.tipo = [];
       state.fotourl = "";
-      state.especie = [];
-      state.evolucao = [];
-      state.evolucoes = [];
+      state.especie = {} as PokemonSpecies;
+      state.evolucao = {} as EvolutionChain;
+      state.evolucoes = [] as Array<string>;
       state.evolucoesURL = [];
       state.descricao = "";
       state.alcunha = "";
@@ -224,14 +212,12 @@ export default defineComponent({
     async function buscaEvolucao(id: string) {
       const request = new ApiPokemon();
       await request
-        .getEspecie(id, "evolution-chain")
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .then((response: any) => {
+        .getEvolutionChain(id)
+        .then(response => {
           state.evolucao = response;
         })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .catch((err: any) => {
-          state.evolucao = [{ erro: err }];
+        .catch(err => {
+          console.error(err);
         });
     }
 
@@ -244,29 +230,23 @@ export default defineComponent({
         );
         idspecie = idspecie.replace("/", "");
         await request
-          .getEspecie(idspecie, "pokemon-species")
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .then((response: any) => {
+          .getPokemonSpecie(idspecie)
+          .then(response => {
             state.especie = response;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            response.genera.map((alc: any) => {
+            response.genera.map(alc => {
               if (alc.language.name === "en") {
                 //if (state.alcunha === "") {
                 state.alcunha = alc.genus;
                 //}
               }
             });
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            response.flavor_text_entries.map((desc: any) => {
+            response.flavor_text_entries.map(desc => {
               if (desc.language.name === "en") {
                 if (state.descricao === "") {
                   state.descricao = state.descricao + desc.flavor_text;
                 }
               }
             });
-
-            //console.log(response.evolution_chain.url)
             if (response.evolution_chain.url) {
               let idChain: string = response.evolution_chain.url.replace(
                 "https://pokeapi.co/api/v2/evolution-chain/",
@@ -300,6 +280,11 @@ export default defineComponent({
         reset();
         BuscaEspecie();
         setaImg();
+        const realSrc = state.fotourl;
+        state.fotourl = "about:blank";
+        setTimeout(() => {
+          state.fotourl = realSrc;
+        }, 500);
       }
     );
     watch(
@@ -314,6 +299,7 @@ export default defineComponent({
       setaImg();
       BuscaEspecie();
     });
+
     return {
       state,
       setaImg,

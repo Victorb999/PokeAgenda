@@ -408,3 +408,118 @@ export interface NameG {
   language: MainRegion;
   name: string;
 }
+//============================
+//pokemon-species=============
+//============================
+export interface PokemonSpecies {
+  base_happiness:         number;
+  capture_rate:           number;
+  color:                  ColorS;
+  egg_groups:             ColorS[];
+  evolution_chain:        EvolutionChainS;
+  evolves_from_species:   null;
+  flavor_text_entries:    FlavorTextEntry[];
+  form_descriptions:      any[];
+  forms_switchable:       boolean;
+  gender_rate:            number;
+  genera:                 Genus[];
+  generation:             ColorS;
+  growth_rate:            ColorS;
+  habitat:                ColorS;
+  has_gender_differences: boolean;
+  hatch_counter:          number;
+  id:                     number;
+  is_baby:                boolean;
+  is_legendary:           boolean;
+  is_mythical:            boolean;
+  name:                   string;
+  names:                  Name[];
+  order:                  number;
+  pal_park_encounters:    PalParkEncounterS[];
+  pokedex_numbers:        PokedexNumberS[];
+  shape:                  ColorS;
+  varieties:              VarietyS[];
+}
+
+export interface ColorS {
+  name: string;
+  url:  string;
+}
+
+export interface EvolutionChainS {
+  url: string;
+}
+
+export interface FlavorTextEntryS {
+  flavor_text: string;
+  language:    ColorS;
+  version:     ColorS;
+}
+
+export interface Genus {
+  genus:    string;
+  language: ColorS;
+}
+
+export interface Name {
+  language: ColorS;
+  name:     string;
+}
+
+export interface PalParkEncounterS {
+  area:       ColorS;
+  base_score: number;
+  rate:       number;
+}
+
+export interface PokedexNumberS {
+  entry_number: number;
+  pokedex:      ColorS;
+}
+
+export interface VarietyS {
+  is_default: boolean;
+  pokemon:    ColorS;
+}
+
+//============================
+//Evolution CHAIN=============
+//============================
+export interface EvolutionChain {
+  baby_trigger_item: null;
+  chain:             ChainEC;
+  id:                number;
+}
+
+export interface ChainEC {
+  evolution_details: EvolutionDetailEC[];
+  evolves_to:        ChainEC[];
+  is_baby:           boolean;
+  species:           Species;
+}
+
+export interface EvolutionDetailEC {
+  gender:                  null;
+  held_item:               null;
+  item:                    null;
+  known_move:              null;
+  known_move_type:         null;
+  location:                null;
+  min_affection:           null;
+  min_beauty:              null;
+  min_happiness:           null;
+  min_level:               number;
+  needs_overworld_rain:    boolean;
+  party_species:           null;
+  party_type:              null;
+  relative_physical_stats: null;
+  time_of_day:             string;
+  trade_species:           null;
+  trigger:                 SpeciesEC;
+  turn_upside_down:        boolean;
+}
+
+export interface SpeciesEC {
+  name: string;
+  url:  string;
+}
