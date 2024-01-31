@@ -52,7 +52,6 @@ export default defineComponent({
     // const {
     //   params: { id },
     // } = useRoute();
-
     const route = useRoute();
     interface Pokemon {
       pokemon: string;
