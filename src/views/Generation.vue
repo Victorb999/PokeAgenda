@@ -47,7 +47,7 @@
 <script lang="ts">
 import { reactive, defineComponent, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
-import ApiPokemon from "@/core/ApiPokemon.ts";
+import ApiPokemon from "@/core/ApiPokemon";
 import { PokeGeneration } from "@/store/interfaces";
 import GenerationPokemons from "@/components/Generation/GenerationPokemons.vue";
 import router from "@/router";

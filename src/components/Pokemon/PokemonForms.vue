@@ -83,9 +83,8 @@ export default defineComponent({
             nome = nome.replace(sufix[0] + "-", "");
           }
           if (nome == "") {
-            state.foto[
-              index
-            ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numeropoke}.png`;
+            state.foto[index] =
+              `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numeropoke}.png`;
           }
           // else if (retorno.pokemon.name.includes("alola")) {
           //   carregaId1();
@@ -98,9 +97,8 @@ export default defineComponent({
               parseInt(state.id) < 999
                 ? ("000" + state.id).substr(-3)
                 : state.id;
-            state.foto[
-              index
-            ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numero}-galar.png`;
+            state.foto[index] =
+              `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numero}-galar.png`;
           }
           //else if (retorno.pokemon.name.includes("gmax")) {
           //   carregaId1();
@@ -118,9 +116,8 @@ export default defineComponent({
           ) {
             state.foto[index] = "https://toyama.com.br/images/imagens.png";
           } else {
-            state.foto[
-              index
-            ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${nome}.png`;
+            state.foto[index] =
+              `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${nome}.png`;
             //state.foto[index] = "https://toyama.com.br/images/imagens.png";
           }
           state.carregado = true;

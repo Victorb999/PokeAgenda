@@ -1,18 +1,18 @@
 <template>
   <div id="nav">
-    <Head />
+    <HeaderMenu />
   </div>
   <router-view />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Head from "@/components/Head.vue";
+import HeaderMenu from "@/components/HeaderMenu.vue";
 
 export default defineComponent({
   name: "Home",
   components: {
-    Head,
+    HeaderMenu,
   },
 });
 </script>

@@ -7,8 +7,5 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./assets/sass/index.sass";
 
-createApp(App)
-  .use(store)
-  .use(router)
-  .mount("#app");
+createApp(App).use(store).use(router).mount("#app");
 // yarn build && firebase deploy

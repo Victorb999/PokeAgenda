@@ -58,9 +58,8 @@ export default defineComponent({
         palavra = palavra.replace("/", "");
         numeropoke = parseInt(palavra);
         if (numeropoke < 10000) {
-          state.foto[
-            index
-          ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numeropoke}.png`;
+          state.foto[index] =
+            `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numeropoke}.png`;
         } else {
           state.foto[index] = "https://toyama.com.br/images/imagens.png";
         }

@@ -70,9 +70,8 @@ export default defineComponent({
           numeropoke = parseInt(palavra);
           state.numero[index] = numeropoke;
           if (numeropoke < 10090) {
-            state.foto[
-              index
-            ] = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numeropoke}.png`;
+            state.foto[index] =
+              `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numeropoke}.png`;
           } else {
             state.foto[index] = "https://toyama.com.br/images/imagens.png";
           }

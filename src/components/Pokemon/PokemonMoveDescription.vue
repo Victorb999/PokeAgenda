@@ -106,10 +106,11 @@ export default defineComponent({
             /\$effect_chance/g,
             response.effect_chance
           );
-          state.shortdescricao = response.effect_entries[0].short_effect.replace(
-            /\$effect_chance/g,
-            response.effect_chance
-          );
+          state.shortdescricao =
+            response.effect_entries[0].short_effect.replace(
+              /\$effect_chance/g,
+              response.effect_chance
+            );
 
           state.moveObj = response;
           state.carregado = true;
