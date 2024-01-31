@@ -23,6 +23,7 @@
         <div class="col">
           <div class="infos" :class="state.tipo[0].type.name">
             <h3>{{ state.alcunha }}</h3>
+            
             <div class="poke-descricao">
               <span v-if="state.descricao">
                 <h4>Description</h4>
@@ -42,6 +43,7 @@
               <h5>Height: {{ pokeresposta.height / 10 }} m</h5>
               <h5>Weight: {{ pokeresposta.weight / 10 }} kg</h5>
             </div>
+
             <div class="poke-tipos">
               <h4>Type</h4>
               <div class="tipos">
@@ -58,6 +60,22 @@
                 </h4>
               </div>
             </div>
+
+            <div class="poke-tipos">
+              <h4>Generation</h4>
+              <div class="tipos">
+                <h4
+                  class="texto-tipo"
+                >
+                <router-link :to="`/generation/${state.especie.generation.name}`">
+                  <span class="badge poke-generation" :class="state.tipo[0].type.name"
+                    >{{ state.especie.generation.name }}
+                  </span>
+                </router-link>
+                </h4>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
