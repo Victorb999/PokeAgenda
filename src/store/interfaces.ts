@@ -423,7 +423,7 @@ export interface PokemonSpecies {
   forms_switchable: boolean;
   gender_rate: number;
   genera: Genus[];
-  generation: ColorS;
+  generation: Generation;
   growth_rate: ColorS;
   habitat: ColorS;
   has_gender_differences: boolean;

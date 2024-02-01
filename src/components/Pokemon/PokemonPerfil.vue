@@ -3,18 +3,20 @@
     <div v-if="state.carregado">
       <div class="titulo">
         <img
-          :src="pokeresposta.sprites.front_default"
-          :alt="pokeresposta.name"
-          v-if="pokeresposta.sprites.front_default"
+          :src="pokeresposta?.sprites.front_default"
+          :alt="pokeresposta?.name"
+          v-if="pokeresposta?.sprites.front_default"
         />
-        <h3 class="pokenome">#{{ pokeresposta.id }} {{ pokeresposta.name }}</h3>
+        <h3 class="pokenome">
+          #{{ pokeresposta?.id }} {{ pokeresposta?.name }}
+        </h3>
       </div>
       <div class="row">
         <div class="col">
           <div class="pokemon-foto">
             <img
               :src="state.fotourl"
-              :alt="pokeresposta.name"
+              :alt="pokeresposta?.name"
               class="fotogrande"
             />
           </div>
@@ -40,8 +42,8 @@
                 Body: {{ state.especie.shape.name }}
               </h5>
 
-              <h5>Height: {{ pokeresposta.height / 10 }} m</h5>
-              <h5>Weight: {{ pokeresposta.weight / 10 }} kg</h5>
+              <h5>Height: {{ pokeresposta?.height / 10 }} m</h5>
+              <h5>Weight: {{ pokeresposta?.weight / 10 }} kg</h5>
             </div>
 
             <div class="poke-tipos">
@@ -64,13 +66,14 @@
             <div class="poke-tipos">
               <h4>Generation</h4>
               <div class="tipos">
-                <h4 class="texto-tipo">
+                <h4 class="texto-tipo" v-if="state.especie.generation">
                   <router-link
                     :to="`/generation/${state.especie.generation.name}`"
                   >
                     <span
                       class="badge poke-generation"
                       :class="state.tipo[0].type.name"
+                      v-if="state.especie.generation"
                     >
                       {{ state.especie.generation.name }}
                     </span>
@@ -84,9 +87,9 @@
       <div class="row">
         <div class="col">
           <PokemonStatus
-            v-if="pokeresposta.stats.length > 1"
-            :pokeresposta="pokeresposta.stats"
-            :color="pokeresposta.types"
+            v-if="pokeresposta?.stats.length > 1"
+            :pokeresposta="pokeresposta?.stats"
+            :color="pokeresposta?.types"
           />
         </div>
       </div>
@@ -127,7 +130,7 @@ import PokemonForms from "@/components/Pokemon/PokemonForms.vue";
 import PokemonStatus from "@/components/Pokemon/PokemonStatusList.vue";
 //import SearchPokemon from "@/components/SearchPokemon.vue"; // @ is an alias to /src
 import { reactive, defineComponent, onMounted, watch } from "vue";
-import { PokemonSpecies, EvolutionChain } from "@/store/interfaces";
+import { PokemonSpecies, EvolutionChain, Type } from "@/store/interfaces";
 export default defineComponent({
   name: "pokemon-perfil",
   components: {
@@ -141,7 +144,7 @@ export default defineComponent({
   setup(props) {
     interface Pokemon {
       fotourl: string;
-      tipo: Array<string>;
+      tipo: Array<Type>;
       carregado: boolean;
       especie: PokemonSpecies;
       evolucao: EvolutionChain;
@@ -167,13 +170,13 @@ export default defineComponent({
     function setaImg() {
       state.fotourl = "";
       if (props.pokeresposta !== undefined) {
-        state.tipo = props.pokeresposta.types;
+        state.tipo = props.pokeresposta?.types;
         if (
-          props.pokeresposta.sprites.other["official-artwork"].front_default !==
-          null
+          props.pokeresposta?.sprites.other["official-artwork"]
+            .front_default !== null
         ) {
           state.fotourl =
-            props.pokeresposta.sprites.other["official-artwork"].front_default;
+            props.pokeresposta?.sprites.other["official-artwork"].front_default;
         } else {
           state.fotourl = "https://toyama.com.br/images/imagens.png";
         }
@@ -244,7 +247,7 @@ export default defineComponent({
     async function BuscaEspecie() {
       const request = new ApiPokemon();
       if (props.pokeresposta !== undefined) {
-        let idspecie = props.pokeresposta.species.url.replace(
+        let idspecie = props.pokeresposta?.species.url.replace(
           "https://pokeapi.co/api/v2/pokemon-species/",
           ""
         );
